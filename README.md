@@ -26,11 +26,11 @@ Samen met een password strength-meter.<br>
 Via dit: [react-native-password-strength-meter](https://www.npmjs.com/package/react-native-password-strength-meter)
 
 Daarnaast kan de gebruiker zijn bestaande wachtwoorden ingeven om te kijken of het sterk genoeg is.
-
+<br><br>
 ## Waarom kies ik voor dit onderwerp?
 Het lijkt me leuk om te doen en wachtwoorden zijn vaak niet sterk genoeg, ook al ziet het wachtwoord er moeilijk uit.<br>
 ___wachtwoord moeilijk te onthouden != sterk wachtwoord___
-
+<br><br>
 ## Hoe ga ik het technisch (ongeveer) uitwerken?
 Op de homepage zal de generator staan.
 Er wordt aangeduid welke eigenschappen het wachtwoord
@@ -43,7 +43,7 @@ Om te kijken of je bestaande wachtwoorden sterk genoeg zijn,
 kan de gebruiker op een icon klikken om naar een andere pagina
 te kunnen navigeren. Op die pagina zal er een inputveld staan en een knop
 om de sterkte ervan te laten testen.
-
+<br><br>
 ## Wat word mijn insteek voor de UI?
 Om te kunnen navigeren naar de andere pagina, wil ik een icon
 gebruiken [speed-icon](https://fonts.google.com/icons?icon.query=speed+&icon.platform=web)
@@ -51,6 +51,6 @@ Hier zal ik gebruik maken van een stack navigator.
 
 Om visueel aan te duiden hoe sterk je wachtwoord is, wil ik een balkje
 laten inkleuren afhankelijk van de sterkte van het wachtwoord.
-
+<br><br>
 ## Op welke platformen ga ik mij focussen?
 Op Android.
