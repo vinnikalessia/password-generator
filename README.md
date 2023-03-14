@@ -25,7 +25,7 @@ Via dit: [react-native-clipboard](https://github.com/react-native-clipboard/clip
 Samen met een password strength-meter.<br>
 Via dit: [react-native-password-strength-meter](https://www.npmjs.com/package/react-native-password-strength-meter)
 
-Om de app te kunnen gebruiken, moet de gebruiker een QR-code scannen met het wachtwoord om in te kunnen loggen.
+Om de app te kunnen gebruiken, moet de gebruiker een QR-code scannen met het wachtwoord om in te kunnen loggen.<br>
 Via dit: [Barcodescanner](https://docs.expo.dev/versions/v48.0.0/sdk/bar-code-scanner/)
 
 Daarnaast kan de gebruiker zijn bestaande wachtwoorden ingeven om te kijken of het sterk genoeg is.
