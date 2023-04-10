@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Alert, StyleSheet } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigation } from '@react-navigation/native';
@@ -6,19 +6,40 @@ import { LabStack } from './LabStack';
 
 export default () => {
   const [qrData, setQrData] = useState<string | null>(null);
+  const [scanningEnabled, setScanningEnabled] = useState(true);
   const navigation = useNavigation();
 
   const handleBarCodeScanned = ({ data }: { data: string }) => {
-    if (data === 'My_password_is_1234') {
-      setQrData(data);
-      Alert.alert('Success', 'Login successful!');
-    }
-    else {
-      Alert.alert('Error', 'Incorrect QR code, please try again');
-      
-      // styles.generic.backgroundColor = "#E76F51";
+    if (scanningEnabled) {
+      setScanningEnabled(false);
+      if (data === 'My_password_is_1234') {
+        setQrData(data);
+        Alert.alert('Success', 'Login successful!', [
+          {
+            text: 'OK',
+            onPress: () => {
+              return (<LabStack/>)
+            },
+          },
+        ]);
+      } else {
+        Alert.alert('Error', 'Incorrect QR code, please try again', [
+          {
+            text: 'OK',
+            onPress: () => {
+              setScanningEnabled(true);
+            },
+          },
+        ]);
+      }
     }
   };
+
+  useEffect(() => {
+    return () => {
+      setScanningEnabled(true);
+    };
+  }, []);
 
   if (qrData) {
     return <LabStack/>;
@@ -55,3 +76,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   }
 })
+
+
+
