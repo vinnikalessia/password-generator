@@ -15,6 +15,8 @@ export default () => {
     }
     else {
       Alert.alert('Error', 'Incorrect QR code, please try again');
+      
+      // styles.generic.backgroundColor = "#E76F51";
     }
   };
 
