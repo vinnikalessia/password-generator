@@ -5,84 +5,93 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { TextInput } from 'react-native-gesture-handler'
 import { useState } from 'react'
 
-type Option = 'lowercase' | 'uppercase' | 'symbols' | 'numbers';
+type Option = 'lowercase' | 'uppercase' | 'symbols' | 'numbers'
 
 export default () => {
-  const { navigate } = useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
+  const { navigate } =
+    useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
   const handleOptionPress = (option: Option) => {
-    const index = selectedOptions.indexOf(option);
+    const index = selectedOptions.indexOf(option)
     if (index !== -1) {
-      setSelectedOptions((prevOptions) => [
+      setSelectedOptions(prevOptions => [
         ...prevOptions.slice(0, index),
         ...prevOptions.slice(index + 1),
-      ]);
+      ])
     } else {
-      setSelectedOptions((prevOptions) => [...prevOptions, option]);
+      setSelectedOptions(prevOptions => [...prevOptions, option])
     }
-  };
+  }
 
   const isOptionSelected = (option: Option) => {
     // Check if the option is selected
-    return selectedOptions.indexOf(option) !== -1;
-  };
+    return selectedOptions.indexOf(option) !== -1
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Generate password</Text>
       <Text style={styles.subtitle}>Choose the parameters</Text>
 
-      <Text>Output</Text>
-      <Text>Length</Text>
+      <View>
+        <Text>here is the output</Text>
+      </View>
+      <Text>this is how secure the password is</Text>
 
       <View style={styles.paramContainer}>
-        <TextInput keyboardType="numeric" style={[styles.gridItem, styles.firstGridItem]} placeholder="length"/>
-        
+        <TextInput
+          keyboardType="numeric"
+          style={[styles.gridItem, styles.bigGridItem]}
+          placeholder="length"
+        />
+
         <Pressable
-        style={[
-          styles.gridItem,
-          isOptionSelected('uppercase') && styles.selectedButton,
-        ]}
-        onPress={() => handleOptionPress('uppercase')}
-      >
-        <Text style={styles.gridItemText}>A</Text>
-      </Pressable>
+          style={[
+            styles.gridItem,
+            isOptionSelected('uppercase') && styles.selectedButton,
+          ]}
+          onPress={() => handleOptionPress('uppercase')}
+        >
+          <Text style={styles.gridItemText}>A</Text>
+        </Pressable>
 
-
-      <Pressable
-        style={[
+        <Pressable
+          style={[
             styles.gridItem,
             isOptionSelected('lowercase') && styles.selectedButton,
           ]}
           onPress={() => handleOptionPress('lowercase')}
-      >
-        <Text style={styles.gridItemText}>a</Text>
-      </Pressable>
+        >
+          <Text style={styles.gridItemText}>a</Text>
+        </Pressable>
 
-
-
-      <Pressable
-        style={[
+        <Pressable
+          style={[
             styles.gridItem,
             isOptionSelected('symbols') && styles.selectedButton,
           ]}
           onPress={() => handleOptionPress('symbols')}
-      >
-        <Text style={styles.gridItemText}>&!</Text>
-      </Pressable>
+        >
+          <Text style={styles.gridItemText}>&!</Text>
+        </Pressable>
 
-      <Pressable
-        style={[
+        <Pressable
+          style={[
             styles.gridItem,
             isOptionSelected('numbers') && styles.selectedButton,
           ]}
           onPress={() => handleOptionPress('numbers')}
-      >
-        <Text style={styles.gridItemText}>123</Text>
-      </Pressable>
-        
+        >
+          <Text style={styles.gridItemText}>123</Text>
+        </Pressable>
 
+        <Pressable
+          style={[styles.generate]}
+          // onPress={() => handleOptionPress()}
+        >
+          <Text style={styles.buttontext}>generate</Text>
+        </Pressable>
       </View>
 
       <Pressable
@@ -92,7 +101,7 @@ export default () => {
         style={styles.button}
       >
         <Text style={styles.buttontext}>check your password here</Text>
-        <Ionicons name="arrow-forward-outline" size={23} color="#264653" />
+        <Ionicons name="arrow-forward-outline" size={23} color="#2A9D8F" />
       </Pressable>
     </View>
   )
@@ -121,10 +130,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     padding: 10,
     borderRadius: 5,
-    marginTop: 20,
+    marginBottom: 20,
   },
   buttontext: {
     color: '#2A9D8F',
+    fontSize: 16,
+    margin: 6,
   },
   paramContainer: {
     flex: 1,
@@ -143,7 +154,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 8,
   },
-  firstGridItem: {
+  bigGridItem: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     width: '65%',
@@ -158,8 +169,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#2A9D8F',
   },
-  selectedOptionText: {
-    fontSize: 18,
-    marginTop: 16,
+  generate: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFF',
+    width: '65%',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20,
   },
 })
