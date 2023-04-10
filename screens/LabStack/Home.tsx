@@ -5,14 +5,28 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { TextInput } from 'react-native-gesture-handler'
 import { useState } from 'react'
 
+type Option = 'lowercase' | 'uppercase' | 'symbols' | 'numbers';
+
 export default () => {
   const { navigate } = useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
-  const [isChecked, setIsChecked] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
 
-  const handlePress = () => {
-    setIsChecked(!isChecked);
+  const handleOptionPress = (option: Option) => {
+    const index = selectedOptions.indexOf(option);
+    if (index !== -1) {
+      setSelectedOptions((prevOptions) => [
+        ...prevOptions.slice(0, index),
+        ...prevOptions.slice(index + 1),
+      ]);
+    } else {
+      setSelectedOptions((prevOptions) => [...prevOptions, option]);
+    }
   };
 
+  const isOptionSelected = (option: Option) => {
+    // Check if the option is selected
+    return selectedOptions.indexOf(option) !== -1;
+  };
 
   return (
     <View style={styles.container}>
@@ -28,12 +42,9 @@ export default () => {
         <Pressable
         style={[
           styles.gridItem,
-          { backgroundColor: isChecked ? '#D4EBE9' : 'white' },
-          { borderColor: isChecked ? '#2A9D8F' : 'none' },
-          { borderWidth: isChecked ? 2 : 0 },
+          isOptionSelected('uppercase') && styles.selectedButton,
         ]}
-        onPress={handlePress}
-        id='uppercase'
+        onPress={() => handleOptionPress('uppercase')}
       >
         <Text style={styles.gridItemText}>A</Text>
       </Pressable>
@@ -41,13 +52,10 @@ export default () => {
 
       <Pressable
         style={[
-          styles.gridItem,
-          { backgroundColor: isChecked ? '#D4EBE9' : 'white' },
-          { borderColor: isChecked ? '#2A9D8F' : 'none' },
-          { borderWidth: isChecked ? 2 : 0 },
-        ]}
-        onPress={handlePress}
-        id='lowercase'
+            styles.gridItem,
+            isOptionSelected('lowercase') && styles.selectedButton,
+          ]}
+          onPress={() => handleOptionPress('lowercase')}
       >
         <Text style={styles.gridItemText}>a</Text>
       </Pressable>
@@ -56,26 +64,20 @@ export default () => {
 
       <Pressable
         style={[
-          styles.gridItem,
-          { backgroundColor: isChecked ? '#D4EBE9' : 'white' },
-          { borderColor: isChecked ? '#2A9D8F' : 'none' },
-          { borderWidth: isChecked ? 2 : 0 },
-        ]}
-        onPress={handlePress}
-        id='symbols'
+            styles.gridItem,
+            isOptionSelected('symbols') && styles.selectedButton,
+          ]}
+          onPress={() => handleOptionPress('symbols')}
       >
         <Text style={styles.gridItemText}>&!</Text>
       </Pressable>
 
       <Pressable
         style={[
-          styles.gridItem,
-          { backgroundColor: isChecked ? '#D4EBE9' : 'white' },
-          { borderColor: isChecked ? '#2A9D8F' : 'none' },
-          { borderWidth: isChecked ? 2 : 0 },
-        ]}
-        onPress={handlePress}
-        id='symbols'
+            styles.gridItem,
+            isOptionSelected('numbers') && styles.selectedButton,
+          ]}
+          onPress={() => handleOptionPress('numbers')}
       >
         <Text style={styles.gridItemText}>123</Text>
       </Pressable>
@@ -151,10 +153,13 @@ const styles = StyleSheet.create({
   gridItemText: {
     fontSize: 18,
   },
-  label: {
+  selectedButton: {
+    backgroundColor: '#D4EBE9',
+    borderWidth: 2,
+    borderColor: '#2A9D8F',
+  },
+  selectedOptionText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    marginTop: 16,
   },
 })
-
-
