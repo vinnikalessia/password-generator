@@ -4,13 +4,40 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { TextInput } from 'react-native-gesture-handler'
 import { useState } from 'react'
+import zxcvbn from 'zxcvbn';
+
 
 type Option = 'lowercase' | 'uppercase' | 'symbols' | 'numbers'
 
 export default () => {
-  const { navigate } =
-    useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
+  const { navigate } = useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
+
+  const [passwordLength, setPasswordLength] = useState('');
+  const [generatedPassword, setGeneratedPassword] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState<number>(0);
+
+  const handlePasswordLengthChange = (text: any) => {
+    setPasswordLength(text);
+  };
+
+  const generatePassword = () => {
+    const password = generateRandomPassword(parseInt(passwordLength));
+    setGeneratedPassword(password);
+
+    // Check password strength using zxcvbn
+    const strength = zxcvbn(password).score;
+    setPasswordStrength(strength);
+  };
+
+  const generateRandomPassword = (length: any) => {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=';
+    let password = '';
+    for (let i = 0; i < length; i++) {
+      password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return password;
+  };
 
   const handleOptionPress = (option: Option) => {
     const index = selectedOptions.indexOf(option)
@@ -34,16 +61,30 @@ export default () => {
       <Text style={styles.title}>Generate password</Text>
       <Text style={styles.subtitle}>Choose the parameters</Text>
 
-      <View>
-        <Text>here is the output</Text>
-      </View>
-      <Text>this is how secure the password is</Text>
+      <Text style={styles.generatedPassword}>Generated Password: {generatedPassword}</Text>
+      {passwordStrength !== 0 && (
+        <View>
+          <Text style={styles.passwordStrength}>
+            Password Strength: {getPasswordStrengthLabel(passwordStrength)}
+          </Text>
+          <View style={styles.strengthMeter}>
+            <View
+              style={[
+                styles.strengthMeterBar,
+                { backgroundColor: getPasswordStrengthColor(passwordStrength) },
+              ]}
+            />
+          </View>
+        </View>
+      )}
 
       <View style={styles.paramContainer}>
         <TextInput
           keyboardType="numeric"
           style={[styles.gridItem, styles.bigGridItem]}
           placeholder="length"
+          onChangeText={handlePasswordLengthChange}
+          value={passwordLength}
         />
 
         <Pressable
@@ -88,11 +129,12 @@ export default () => {
 
         <Pressable
           style={[styles.generate]}
-          // onPress={() => handleOptionPress()}
+          onPress={generatePassword}
         >
           <Text style={styles.buttontext}>generate</Text>
         </Pressable>
       </View>
+      
 
       <Pressable
         onPress={() => {
@@ -106,6 +148,42 @@ export default () => {
     </View>
   )
 }
+
+const getPasswordStrengthLabel = (strength: any) => {
+  switch (strength) {
+    case 0:
+      return 'Weak';
+    case 1:
+      return 'Fair';
+    case 2:
+      return 'Moderate';
+    case 3:
+      return 'Strong';
+    case 4:
+      return 'Very Strong';
+    default:
+      return '';
+  }
+};
+
+const getPasswordStrengthColor = (strength: any) => {
+  switch (strength) {
+    case 0:
+      return 'red';
+    case 1:
+      return 'orange';
+    case 2:
+      return 'yellow';
+    case 3:
+      return 'green';
+    case 4:
+      return 'blue';
+    default:
+      return 'gray';
+  }
+};
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -177,6 +255,34 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginTop: 20,
+  },
+
+
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingHorizontal: 8,
+  },
+  generatedPassword: {
+    marginBottom: 16,
+  },
+  passwordStrength: {
+    fontSize: 16,
+    marginBottom: 8,
+  },
+  strengthMeter: {
+    height: 10,
+    backgroundColor: 'gray',
+    marginBottom: 16,
+  },
+  strengthMeterBar: {
+    height: 10,
+  },
+  generateButton: {
+    fontSize: 16,
+    color: 'blue',
   },
 })
 
