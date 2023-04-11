@@ -17,12 +17,39 @@ export default () => {
   const [generatedPassword, setGeneratedPassword] = useState('');
   const [passwordStrength, setPasswordStrength] = useState<number>(0);
 
+  const [includeUppercase, setIncludeUppercase] = useState(true);
+  const [includeLowercase, setIncludeLowercase] = useState(true);
+  const [includeNumbers, setIncludeNumbers] = useState(true);
+  const [includeSymbols, setIncludeSymbols] = useState(true);
+
   const handlePasswordLengthChange = (text: any) => {
     setPasswordLength(text);
   };
 
+  const handleIncludeUppercaseChange = (value: boolean) => {
+    setIncludeUppercase(value);
+  };
+
+  const handleIncludeLowercaseChange = (value: boolean) => {
+    setIncludeLowercase(value);
+  };
+
+  const handleIncludeNumbersChange = (value: boolean) => {
+    setIncludeNumbers(value);
+  };
+
+  const handleIncludeSymbolsChange = (value: boolean) => {
+    setIncludeSymbols(value);
+  };
+
   const generatePassword = () => {
-    const password = generateRandomPassword(parseInt(passwordLength));
+    const password = generateRandomPassword(
+      parseInt(passwordLength),
+      includeUppercase,
+      includeLowercase,
+      includeNumbers,
+      includeSymbols
+    );
     setGeneratedPassword(password);
 
     // Check password strength using zxcvbn
@@ -30,8 +57,21 @@ export default () => {
     setPasswordStrength(strength);
   };
 
-  const generateRandomPassword = (length: any) => {
-    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=';
+  const generateRandomPassword = (length: any, uppercase: any, lowercase: any, numbers: any, symbols: any) => {
+    let chars = '';
+    if (uppercase) {
+      chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    }
+    if (lowercase) {
+      chars += 'abcdefghijklmnopqrstuvwxyz';
+    }
+    if (numbers) {
+      chars += '0123456789';
+    }
+    if (symbols) {
+      chars += '!@#$%^&*()_-+=';
+    }
+
     let password = '';
     for (let i = 0; i < length; i++) {
       password += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -97,7 +137,7 @@ export default () => {
           <Text style={styles.gridItemText}>A</Text>
         </Pressable>
 
-        <Pressable
+        {/* <Pressable
           style={[
             styles.gridItem,
             isOptionSelected('lowercase') && styles.selectedButton,
@@ -125,7 +165,32 @@ export default () => {
           onPress={() => handleOptionPress('numbers')}
         >
           <Text style={styles.gridItemText}>123</Text>
+        </Pressable> */}
+
+      <View style={styles.checkboxContainer}>
+        <Text style={styles.checkboxLabel}>Include Uppercase</Text>
+        <Pressable onPress={() => handleIncludeUppercaseChange(!includeUppercase)}>
+          <Text>{includeUppercase ? '✅' : '❌'}</Text>
         </Pressable>
+      </View>
+      <View style={styles.checkboxContainer}>
+        <Text style={styles.checkboxLabel}>Include Lowercase</Text>
+        <Pressable onPress={() => handleIncludeLowercaseChange(!includeLowercase)}>
+          <Text>{includeLowercase ? '✅' : '❌'}</Text>
+        </Pressable>
+      </View>
+      <View style={styles.checkboxContainer}>
+        <Text style={styles.checkboxLabel}>Include Numbers</Text>
+        <Pressable onPress={() => handleIncludeNumbersChange(!includeNumbers)}>
+          <Text>{includeNumbers ? '✅' : '❌'}</Text>
+        </Pressable>
+      </View>
+      <View style={styles.checkboxContainer}>
+        <Text style={styles.checkboxLabel}>Include Symbols</Text>
+        <Pressable onPress={() => handleIncludeSymbolsChange(!includeSymbols)}>
+          <Text>{includeSymbols ? '✅' : '❌'}</Text>
+        </Pressable>
+      </View>
 
         <Pressable
           style={[styles.generate]}
@@ -283,6 +348,25 @@ const styles = StyleSheet.create({
   generateButton: {
     fontSize: 16,
     color: 'blue',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  checkboxLabel: {
+    marginHorizontal: 10,
+  },
+  generateButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  generatedPasswordLabel: {
+    fontSize: 16,
+    marginTop: 20,
+  },
+  passwordStrengthLabel: {
+    fontSize: 16,
   },
 })
 
