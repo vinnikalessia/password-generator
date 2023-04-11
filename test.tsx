@@ -1,102 +1,130 @@
-
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, TextInput, Text, StyleSheet } from 'react-native';
+import zxcvbn from 'zxcvbn';
 
-type Option = 'lowercase' | 'uppercase' | 'symbols' | 'numbers';
+const PasswordGenerator = () => {
+  const [passwordLength, setPasswordLength] = useState('');
+  const [generatedPassword, setGeneratedPassword] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState('');
 
-const MyComponent = () => {
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
-
-  const handleOptionPress = (option: Option) => {
-    // Check if the option is already selected
-    const index = selectedOptions.indexOf(option);
-    if (index !== -1) {
-      // If already selected, remove it from the array
-      setSelectedOptions((prevOptions) => [
-        ...prevOptions.slice(0, index),
-        ...prevOptions.slice(index + 1),
-      ]);
-    } else {
-      // If not selected, add it to the array
-      setSelectedOptions((prevOptions) => [...prevOptions, option]);
-    }
+  const handlePasswordLengthChange = (text) => {
+    setPasswordLength(text);
   };
 
-  const isOptionSelected = (option: Option) => {
-    // Check if the option is selected
-    return selectedOptions.indexOf(option) !== -1;
+  const generatePassword = () => {
+    const password = generateRandomPassword(parseInt(passwordLength));
+    setGeneratedPassword(password);
+
+    // Check password strength using zxcvbn
+    const strength = zxcvbn(password).score;
+    setPasswordStrength(strength);
+  };
+
+  const generateRandomPassword = (length) => {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=';
+    let password = '';
+    for (let i = 0; i < length; i++) {
+      password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return password;
   };
 
   return (
     <View style={styles.container}>
-      <Pressable
-        style={[
-          styles.button,
-          isOptionSelected('lowercase') && styles.selectedButton,
-        ]}
-        onPress={() => handleOptionPress('lowercase')}
-      >
-        <Text style={styles.buttonText}>Lowercase</Text>
-      </Pressable>
-      <Pressable
-        style={[
-          styles.button,
-          isOptionSelected('uppercase') && styles.selectedButton,
-        ]}
-        onPress={() => handleOptionPress('uppercase')}
-      >
-        <Text style={styles.buttonText}>Uppercase</Text>
-      </Pressable>
-      <Pressable
-        style={[
-          styles.button,
-          isOptionSelected('symbols') && styles.selectedButton,
-        ]}
-        onPress={() => handleOptionPress('symbols')}
-      >
-        <Text style={styles.buttonText}>Symbols</Text>
-      </Pressable>
-      <Pressable
-        style={[
-          styles.button,
-          isOptionSelected('numbers') && styles.selectedButton,
-        ]}
-        onPress={() => handleOptionPress('numbers')}
-      >
-        <Text style={styles.buttonText}>Numbers</Text>
-      </Pressable>
-      <Text style={styles.selectedOptionText}>
-        Selected Options: {selectedOptions.join(', ') || 'None'}
+      <TextInput
+        style={styles.input}
+        keyboardType="numeric"
+        onChangeText={handlePasswordLengthChange}
+        value={passwordLength}
+        placeholder="Enter password length"
+      />
+      <Text style={styles.generatedPassword}>Generated Password: {generatedPassword}</Text>
+      {passwordStrength !== '' && (
+        <View>
+          <Text style={styles.passwordStrength}>
+            Password Strength: {getPasswordStrengthLabel(passwordStrength)}
+          </Text>
+          <View style={styles.strengthMeter}>
+            <View
+              style={[
+                styles.strengthMeterBar,
+                { backgroundColor: getPasswordStrengthColor(passwordStrength) },
+              ]}
+            />
+          </View>
+        </View>
+      )}
+      <Text onPress={generatePassword} style={styles.generateButton}>
+        Generate Password
       </Text>
     </View>
   );
 };
 
+const getPasswordStrengthLabel = (strength) => {
+  switch (strength) {
+    case 0:
+      return 'Weak';
+    case 1:
+      return 'Fair';
+    case 2:
+      return 'Moderate';
+    case 3:
+      return 'Strong';
+    case 4:
+      return 'Very Strong';
+    default:
+      return '';
+  }
+};
+
+const getPasswordStrengthColor = (strength) => {
+  switch (strength) {
+    case 0:
+      return 'red';
+    case 1:
+      return 'orange';
+    case 2:
+      return 'yellow';
+    case 3:
+      return 'green';
+    case 4:
+      return 'blue';
+    default:
+      return 'gray';
+  }
+};
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 16,
   },
-  button: {
-    backgroundColor: 'lightgray',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    marginVertical: 8,
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingHorizontal: 8,
   },
-  selectedButton: {
+  generatedPassword: {
+    marginBottom: 16,
+  },
+  passwordStrength: {
+    fontSize: 16,
+    marginBottom: 8,
+  },
+  strengthMeter: {
+    height: 10,
     backgroundColor: 'gray',
+    marginBottom: 16,
   },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'black',
+  strengthMeterBar: {
+    height: 10,
   },
-  selectedOptionText: {
-    fontSize: 18,
-    marginTop: 16,
+  generateButton: {
+    fontSize: 16,
+    color: 'blue',
   },
 });
 
-export default MyComponent;
+export default PasswordGenerator;
