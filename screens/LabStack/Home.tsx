@@ -132,19 +132,19 @@ export default () => {
             styles.gridItem,
             isOptionSelected('uppercase') && styles.selectedButton,
           ]}
-          onPress={() => handleOptionPress('uppercase')}
+          onPress={() => handleIncludeUppercaseChange(!includeUppercase)}
         >
-          <Text style={styles.gridItemText}>A</Text>
+          <Text style={styles.gridItemText}>{includeUppercase ? '✅' : '❌'}A</Text>
         </Pressable>
 
-        {/* <Pressable
+        <Pressable
           style={[
             styles.gridItem,
             isOptionSelected('lowercase') && styles.selectedButton,
           ]}
-          onPress={() => handleOptionPress('lowercase')}
+          onPress={() => handleIncludeLowercaseChange(!includeLowercase)}
         >
-          <Text style={styles.gridItemText}>a</Text>
+          <Text style={styles.gridItemText}>{includeLowercase ? '✅' : '❌'}a</Text>
         </Pressable>
 
         <Pressable
@@ -152,9 +152,9 @@ export default () => {
             styles.gridItem,
             isOptionSelected('symbols') && styles.selectedButton,
           ]}
-          onPress={() => handleOptionPress('symbols')}
+          onPress={() => handleIncludeSymbolsChange(!includeSymbols)}
         >
-          <Text style={styles.gridItemText}>&!</Text>
+          <Text style={styles.gridItemText}>{includeSymbols ? '✅' : '❌'}&!</Text>
         </Pressable>
 
         <Pressable
@@ -162,35 +162,10 @@ export default () => {
             styles.gridItem,
             isOptionSelected('numbers') && styles.selectedButton,
           ]}
-          onPress={() => handleOptionPress('numbers')}
+          onPress={() => handleIncludeNumbersChange(!includeNumbers)}
         >
-          <Text style={styles.gridItemText}>123</Text>
-        </Pressable> */}
-
-      <View style={styles.checkboxContainer}>
-        <Text style={styles.checkboxLabel}>Include Uppercase</Text>
-        <Pressable onPress={() => handleIncludeUppercaseChange(!includeUppercase)}>
-          <Text>{includeUppercase ? '✅' : '❌'}</Text>
+          <Text style={styles.gridItemText}>{includeNumbers ? '✅' : '❌'}123</Text>
         </Pressable>
-      </View>
-      <View style={styles.checkboxContainer}>
-        <Text style={styles.checkboxLabel}>Include Lowercase</Text>
-        <Pressable onPress={() => handleIncludeLowercaseChange(!includeLowercase)}>
-          <Text>{includeLowercase ? '✅' : '❌'}</Text>
-        </Pressable>
-      </View>
-      <View style={styles.checkboxContainer}>
-        <Text style={styles.checkboxLabel}>Include Numbers</Text>
-        <Pressable onPress={() => handleIncludeNumbersChange(!includeNumbers)}>
-          <Text>{includeNumbers ? '✅' : '❌'}</Text>
-        </Pressable>
-      </View>
-      <View style={styles.checkboxContainer}>
-        <Text style={styles.checkboxLabel}>Include Symbols</Text>
-        <Pressable onPress={() => handleIncludeSymbolsChange(!includeSymbols)}>
-          <Text>{includeSymbols ? '✅' : '❌'}</Text>
-        </Pressable>
-      </View>
 
         <Pressable
           style={[styles.generate]}
