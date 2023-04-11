@@ -101,90 +101,74 @@ export default () => {
       <Text style={styles.title}>Generate password</Text>
       <Text style={styles.subtitle}>Choose the parameters</Text>
 
-      <Text style={styles.generatedPassword}>Generated Password: {generatedPassword}</Text>
-      {passwordStrength !== 0 && (
+      <Text style={styles.output}>Generated Password: {generatedPassword}</Text>
         <View>
           <Text style={styles.passwordStrength}>
             Password Strength: {getPasswordStrengthLabel(passwordStrength)}
           </Text>
           <View style={styles.strengthMeter}>
             <View
-              style={[
-                styles.strengthMeterBar,
-                { backgroundColor: getPasswordStrengthColor(passwordStrength) },
-              ]}
+            style={[styles.strengthMeterBar, { backgroundColor: getPasswordStrengthColor(passwordStrength) }]}
             />
-          </View>
         </View>
-      )}
+      </View>
+        <Pressable
+        style={styles.button}
+          onPress={() => {
+            navigate('Check')
+          }}
+        >
+          <Text style={styles.buttonText}>check your password here</Text>
+          <Ionicons name="arrow-forward-outline"  style={styles.icon} size={23}/>
+        </Pressable>
 
       <View style={styles.paramContainer}>
         <TextInput
           keyboardType="numeric"
-          style={[styles.gridItem, styles.bigGridItem]}
           placeholder="length"
           onChangeText={handlePasswordLengthChange}
           value={passwordLength}
+          style={styles.bigGridItem}
         />
 
         <Pressable
-          style={[
-            styles.gridItem,
-            isOptionSelected('uppercase') && styles.selectedButton,
-          ]}
+        style={styles.gridItem}
           onPress={() => handleIncludeUppercaseChange(!includeUppercase)}
         >
-          <Text style={styles.gridItemText}>{includeUppercase ? '✅' : '❌'}A</Text>
+          <Text>{includeUppercase ? '✅' : '❌'}A</Text>
         </Pressable>
 
         <Pressable
-          style={[
-            styles.gridItem,
-            isOptionSelected('lowercase') && styles.selectedButton,
-          ]}
+        style={styles.gridItem}
           onPress={() => handleIncludeLowercaseChange(!includeLowercase)}
         >
-          <Text style={styles.gridItemText}>{includeLowercase ? '✅' : '❌'}a</Text>
+          <Text>{includeLowercase ? '✅' : '❌'}a</Text>
         </Pressable>
 
         <Pressable
-          style={[
-            styles.gridItem,
-            isOptionSelected('symbols') && styles.selectedButton,
-          ]}
+        style={styles.gridItem}
           onPress={() => handleIncludeSymbolsChange(!includeSymbols)}
         >
-          <Text style={styles.gridItemText}>{includeSymbols ? '✅' : '❌'}&!</Text>
+          <Text>{includeSymbols ? '✅' : '❌'}&!</Text>
         </Pressable>
 
         <Pressable
-          style={[
-            styles.gridItem,
-            isOptionSelected('numbers') && styles.selectedButton,
-          ]}
+        style={styles.gridItem}
           onPress={() => handleIncludeNumbersChange(!includeNumbers)}
         >
-          <Text style={styles.gridItemText}>{includeNumbers ? '✅' : '❌'}123</Text>
+          <Text>{includeNumbers ? '✅' : '❌'}123</Text>
         </Pressable>
 
         <Pressable
-          style={[styles.generate]}
+        style={styles.generateButton}
           onPress={generatePassword}
         >
-          <Text style={styles.buttontext}>generate</Text>
+          <Text style={styles.generateText}>Generate</Text>
         </Pressable>
+
+
       </View>
       
-
-      <Pressable
-        onPress={() => {
-          navigate('Check')
-        }}
-        style={styles.button}
-      >
-        <Text style={styles.buttontext}>check your password here</Text>
-        <Ionicons name="arrow-forward-outline" size={23} color="#2A9D8F" />
-      </Pressable>
     </View>
   )
 }
@@ -223,8 +207,6 @@ const getPasswordStrengthColor = (strength: any) => {
   }
 };
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -238,22 +220,28 @@ const styles = StyleSheet.create({
     color: '#2A9D8F',
   },
   subtitle: {
-    fontSize: 18,
-    marginTop: 8,
+    fontSize: 16,
     color: '#2A9D8F',
   },
-  button: {
-    alignItems: 'center',
-    flexDirection: 'row',
+  output: {
+    fontSize: 12,
     backgroundColor: '#FFF',
     padding: 10,
-    borderRadius: 5,
-    marginBottom: 20,
+    borderRadius: 6,
+    marginVertical: 16,
   },
-  buttontext: {
-    color: '#2A9D8F',
-    fontSize: 16,
-    margin: 6,
+  passwordStrength: {
+    fontSize: 12,
+    marginBottom: 4,
+  },
+  strengthMeter: {
+    backgroundColor: 'gray',
+    marginBottom: 16,
+    width: 210,
+    height: 4,
+  },
+  strengthMeterBar: {
+    height: 4,
   },
   paramContainer: {
     flex: 1,
@@ -263,88 +251,53 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   gridItem: {
-    width: '30%',
-    height: 96,
     justifyContent: 'center',
     alignItems: 'center',
+    width: '30%',
+    height: 96,
     padding: 16,
     backgroundColor: '#FFF',
     borderRadius: 5,
     margin: 8,
   },
   bigGridItem: {
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'flex-start',
     width: '65%',
     height: 56,
+    padding: 16,
     backgroundColor: '#FFF',
-  },
-  gridItemText: {
-    fontSize: 18,
-  },
-  selectedButton: {
-    backgroundColor: '#D4EBE9',
-    borderWidth: 2,
-    borderColor: '#2A9D8F',
-  },
-  generate: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFF',
-    width: '65%',
-    padding: 10,
     borderRadius: 5,
-    marginTop: 20,
-  },
-
-
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-  },
-  generatedPassword: {
-    marginBottom: 16,
-  },
-  passwordStrength: {
-    fontSize: 16,
-    marginBottom: 8,
-  },
-  strengthMeter: {
-    height: 10,
-    backgroundColor: 'gray',
-    marginBottom: 16,
-  },
-  strengthMeterBar: {
-    height: 10,
+    margin: 8,
   },
   generateButton: {
-    fontSize: 16,
-    color: 'blue',
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
+    backgroundColor: '#FFF',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 5,
+    width: '65%',
+    height: 56,
+    borderRadius: 5,
+    margin: 8,
   },
-  checkboxLabel: {
-    marginHorizontal: 10,
+  generateText:{
+    fontSize: 18,
+    color: '#2A9D8F',
   },
-  generateButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+  button:{
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    padding: 16,
+    marginBottom: 16,
   },
-  generatedPasswordLabel: {
-    fontSize: 16,
-    marginTop: 20,
+  buttonText:{
+    fontSize: 14,
   },
-  passwordStrengthLabel: {
-    fontSize: 16,
-  },
+  icon:{
+    color: '#2A9D8F',
+  }
 })
-
 
 
 
