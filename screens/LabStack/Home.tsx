@@ -2,7 +2,7 @@ import { ParamListBase, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { TextInput } from 'react-native-gesture-handler'
+import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import { useState } from 'react'
 import zxcvbn from 'zxcvbn';
 
@@ -97,79 +97,79 @@ export default () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Generate password</Text>
-      <Text style={styles.subtitle}>Choose the parameters</Text>
+    <ScrollView>
 
-      <Text style={styles.output}>Generated Password: {generatedPassword}</Text>
-        <View>
-          <Text style={styles.passwordStrength}>
-            Password Strength: {getPasswordStrengthLabel(passwordStrength)}
-          </Text>
-          <View style={styles.strengthMeter}>
-            <View
-            style={[styles.strengthMeterBar, { backgroundColor: getPasswordStrengthColor(passwordStrength) }]}
-            />
+      <View style={styles.container}>
+        <Text style={styles.title}>Generate password</Text>
+        <Text style={styles.subtitle}>Choose the parameters</Text>
+
+        <Text style={styles.output}>{generatedPassword}</Text>
+          <View>
+            <Text style={styles.passwordStrength}>
+              Password Strength: {getPasswordStrengthLabel(passwordStrength)}
+            </Text>
+            <View style={styles.strengthMeter}>
+              <View
+              style={[styles.strengthMeterBar, { backgroundColor: getPasswordStrengthColor(passwordStrength) }]}
+              />
+          </View>
         </View>
+        <View style={styles.paramContainer}>
+          <TextInput
+            keyboardType="numeric"
+            placeholder="length"
+            onChangeText={handlePasswordLengthChange}
+            value={passwordLength}
+            style={styles.bigGridItem}
+          />
+
+          <Pressable
+          style={styles.gridItem}
+            onPress={() => handleIncludeUppercaseChange(!includeUppercase)}
+          >
+            <Text>{includeUppercase ? '✅' : '❌'}A</Text>
+          </Pressable>
+
+          <Pressable
+          style={styles.gridItem}
+            onPress={() => handleIncludeLowercaseChange(!includeLowercase)}
+          >
+            <Text>{includeLowercase ? '✅' : '❌'}a</Text>
+          </Pressable>
+
+          <Pressable
+          style={styles.gridItem}
+            onPress={() => handleIncludeSymbolsChange(!includeSymbols)}
+          >
+            <Text>{includeSymbols ? '✅' : '❌'}&!</Text>
+          </Pressable>
+
+          <Pressable
+          style={styles.gridItem}
+            onPress={() => handleIncludeNumbersChange(!includeNumbers)}
+          >
+            <Text>{includeNumbers ? '✅' : '❌'}123</Text>
+          </Pressable>
+
+          <Pressable
+          style={styles.generateButton}
+            onPress={generatePassword}
+          >
+            <Text style={styles.generateText}>Generate</Text>
+          </Pressable>
+
+        </View>
+        <Pressable
+          style={styles.button}
+            onPress={() => {
+              navigate('Check')
+            }}
+          >
+            <Text style={styles.buttonText}>check your password here</Text>
+            <Ionicons name="arrow-forward-outline"  style={styles.icon} size={23}/>
+          </Pressable>
       </View>
-        <Pressable
-        style={styles.button}
-          onPress={() => {
-            navigate('Check')
-          }}
-        >
-          <Text style={styles.buttonText}>check your password here</Text>
-          <Ionicons name="arrow-forward-outline"  style={styles.icon} size={23}/>
-        </Pressable>
-
-      <View style={styles.paramContainer}>
-        <TextInput
-          keyboardType="numeric"
-          placeholder="length"
-          onChangeText={handlePasswordLengthChange}
-          value={passwordLength}
-          style={styles.bigGridItem}
-        />
-
-        <Pressable
-        style={styles.gridItem}
-          onPress={() => handleIncludeUppercaseChange(!includeUppercase)}
-        >
-          <Text>{includeUppercase ? '✅' : '❌'}A</Text>
-        </Pressable>
-
-        <Pressable
-        style={styles.gridItem}
-          onPress={() => handleIncludeLowercaseChange(!includeLowercase)}
-        >
-          <Text>{includeLowercase ? '✅' : '❌'}a</Text>
-        </Pressable>
-
-        <Pressable
-        style={styles.gridItem}
-          onPress={() => handleIncludeSymbolsChange(!includeSymbols)}
-        >
-          <Text>{includeSymbols ? '✅' : '❌'}&!</Text>
-        </Pressable>
-
-        <Pressable
-        style={styles.gridItem}
-          onPress={() => handleIncludeNumbersChange(!includeNumbers)}
-        >
-          <Text>{includeNumbers ? '✅' : '❌'}123</Text>
-        </Pressable>
-
-        <Pressable
-        style={styles.generateButton}
-          onPress={generatePassword}
-        >
-          <Text style={styles.generateText}>Generate</Text>
-        </Pressable>
-
-
-      </View>
-      
-    </View>
+    </ScrollView>
   )
 }
 
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     color: '#2A9D8F',
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#2A9D8F',
   },
   output: {
@@ -228,7 +228,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     padding: 10,
     borderRadius: 6,
-    marginVertical: 16,
+    marginTop: 16,
+    marginBottom: 8,
+    width: 230,
   },
   passwordStrength: {
     fontSize: 12,
@@ -236,7 +238,7 @@ const styles = StyleSheet.create({
   },
   strengthMeter: {
     backgroundColor: 'gray',
-    marginBottom: 16,
+    marginBottom: 8,
     width: 210,
     height: 4,
   },
@@ -264,7 +266,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     width: '65%',
-    height: 56,
+    // height: 56,
+    height: 48,
     padding: 16,
     backgroundColor: '#FFF',
     borderRadius: 5,
@@ -287,12 +290,17 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderRadius: 5,
     padding: 16,
     marginBottom: 16,
+    marginTop: 32,
+    width: 230,
   },
   buttonText:{
     fontSize: 14,
+    color: '#2A9D8F',
   },
   icon:{
     color: '#2A9D8F',
