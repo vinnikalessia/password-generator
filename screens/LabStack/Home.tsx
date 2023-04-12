@@ -70,7 +70,6 @@ export default () => {
     }
     if (symbols) {
       chars += '#$%^&_-+';
-      // chars += '!@#$%^&*()_-+='; // not secure
     }
 
     let password = '';
@@ -80,26 +79,8 @@ export default () => {
     return password;
   };
 
-  const handleOptionPress = (option: Option) => {
-    const index = selectedOptions.indexOf(option)
-    if (index !== -1) {
-      setSelectedOptions(prevOptions => [
-        ...prevOptions.slice(0, index),
-        ...prevOptions.slice(index + 1),
-      ])
-    } else {
-      setSelectedOptions(prevOptions => [...prevOptions, option])
-    }
-  }
-
-  const isOptionSelected = (option: Option) => {
-    // Check if the option is selected
-    return selectedOptions.indexOf(option) !== -1
-  }
-
   return (
     <ScrollView>
-
       <View style={styles.container}>
         <Text style={styles.title}>Generate password</Text>
         <Text style={styles.subtitle}>Choose the parameters</Text>
