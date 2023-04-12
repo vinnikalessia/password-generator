@@ -13,7 +13,7 @@ export default () => {
   const { navigate } = useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
-  const [passwordLength, setPasswordLength] = useState('');
+  const [passwordLength, setPasswordLength] = useState<string>('8');
   const [generatedPassword, setGeneratedPassword] = useState('');
   const [passwordStrength, setPasswordStrength] = useState<number>(0);
 
@@ -69,7 +69,8 @@ export default () => {
       chars += '0123456789';
     }
     if (symbols) {
-      chars += '!@#$%^&*()_-+=';
+      chars += '#$%^&_-+';
+      // chars += '!@#$%^&*()_-+='; // not secure
     }
 
     let password = '';
@@ -117,38 +118,38 @@ export default () => {
         <View style={styles.paramContainer}>
           <TextInput
             keyboardType="numeric"
-            placeholder="length"
+            placeholder="length: 8"
             onChangeText={handlePasswordLengthChange}
             value={passwordLength}
             style={styles.bigGridItem}
           />
 
           <Pressable
-          style={styles.gridItem}
+          style={[styles.gridItem, includeUppercase ? styles.selectedButton : styles.gridItem]}
             onPress={() => handleIncludeUppercaseChange(!includeUppercase)}
           >
-            <Text>{includeUppercase ? '✅' : '❌'}A</Text>
+            <Text>A</Text>
           </Pressable>
 
           <Pressable
-          style={styles.gridItem}
+          style={[styles.gridItem, includeLowercase ? styles.selectedButton : styles.gridItem]}
             onPress={() => handleIncludeLowercaseChange(!includeLowercase)}
           >
-            <Text>{includeLowercase ? '✅' : '❌'}a</Text>
+            <Text>a</Text>
           </Pressable>
 
           <Pressable
-          style={styles.gridItem}
+          style={[styles.gridItem, includeSymbols ? styles.selectedButton : styles.gridItem]}
             onPress={() => handleIncludeSymbolsChange(!includeSymbols)}
           >
-            <Text>{includeSymbols ? '✅' : '❌'}&!</Text>
+            <Text>&!</Text>
           </Pressable>
 
           <Pressable
-          style={styles.gridItem}
+          style={[styles.gridItem, includeNumbers ? styles.selectedButton : styles.gridItem]}
             onPress={() => handleIncludeNumbersChange(!includeNumbers)}
           >
-            <Text>{includeNumbers ? '✅' : '❌'}123</Text>
+            <Text>123</Text>
           </Pressable>
 
           <Pressable
@@ -266,12 +267,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     width: '65%',
-    // height: 56,
     height: 48,
     padding: 16,
     backgroundColor: '#FFF',
     borderRadius: 5,
     margin: 8,
+  },
+  selectedButton: {
+    backgroundColor: '#D4EBE9',
+    borderWidth: 2,
+    borderColor: '#2A9D8F',
   },
   generateButton: {
     backgroundColor: '#FFF',
@@ -306,7 +311,4 @@ const styles = StyleSheet.create({
     color: '#2A9D8F',
   }
 })
-
-
-
 
