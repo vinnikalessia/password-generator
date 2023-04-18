@@ -1,10 +1,11 @@
 import { ParamListBase, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Button } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import { useState } from 'react'
 import zxcvbn from 'zxcvbn'
+import * as Clipboard from 'expo-clipboard';
 
 type Option = 'lowercase' | 'uppercase' | 'symbols' | 'numbers'
 
@@ -85,6 +86,17 @@ export default () => {
     return password
   }
 
+  const [copiedText, setCopiedText] = useState('');
+
+  const copyToClipboard = async () => {
+    await Clipboard.setStringAsync('hello world');
+  };
+
+  const fetchCopiedText = async () => {
+    const text = await Clipboard.getStringAsync();
+    setCopiedText(text);
+  };
+
   return (
     <ScrollView style={styles.bg}>
       <View style={styles.container}>
@@ -105,6 +117,12 @@ export default () => {
             />
           </View>
         </View>
+        <View style={styles.container}>
+          <Button title="Click here to copy to Clipboard" onPress={copyToClipboard} />
+          <Button title="View copied text" onPress={fetchCopiedText} />
+          <Text style={styles.copiedText}>{copiedText}</Text>
+        </View>
+        {/* https://docs.expo.dev/versions/latest/sdk/clipboard/ */}
 
         <View style={styles.paramContainer}>
           <TextInput
@@ -314,5 +332,14 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: '#2A9D8F',
+  },
+  copiedText: {
+    fontSize: 12,
+    backgroundColor: '#FFF',
+    padding: 10,
+    borderRadius: 6,
+    marginTop: 16,
+    marginBottom: 8,
+    width: 230,
   },
 })

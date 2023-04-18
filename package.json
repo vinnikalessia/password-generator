@@ -19,7 +19,8 @@
     "react-native": "0.71.6",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-ionicons": "^4.6.5",
-    "zxcvbn": "^4.4.2"
+    "zxcvbn": "^4.4.2",
+    "expo-clipboard": "~4.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

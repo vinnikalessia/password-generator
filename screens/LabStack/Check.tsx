@@ -5,9 +5,11 @@ import {
 } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useState } from 'react'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Pressable, StyleSheet} from 'react-native'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import zxcvbn from 'zxcvbn'
+import * as React from 'react';
+import * as Clipboard from 'expo-clipboard';
 
 export default () => {
   const { setOptions, goBack } =
@@ -107,3 +109,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8F0F3',
   },
 })
+
+
