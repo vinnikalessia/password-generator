@@ -52,6 +52,8 @@ export default () => {
       includeSymbols,
     )
     setGeneratedPassword(password)
+    // console.log('generatedPassword in generatePassword => ', password)
+    
 
     // Check password strength using zxcvbn
     const strength = zxcvbn(password).score
@@ -89,7 +91,7 @@ export default () => {
   const [copiedText, setCopiedText] = useState('');
 
   const copyToClipboard = async () => {
-    await Clipboard.setStringAsync('hello world');
+    await Clipboard.setStringAsync(generatedPassword);
   };
 
   const fetchCopiedText = async () => {
@@ -117,12 +119,10 @@ export default () => {
             />
           </View>
         </View>
-        <View style={styles.container}>
-          <Button title="Click here to copy to Clipboard" onPress={copyToClipboard} />
-          <Button title="View copied text" onPress={fetchCopiedText} />
-          <Text style={styles.copiedText}>{copiedText}</Text>
-        </View>
-        {/* https://docs.expo.dev/versions/latest/sdk/clipboard/ */}
+
+        <Button title="copy" onPress={copyToClipboard}/>
+        <Button title="View copied text" onPress={fetchCopiedText} />
+        <Text style={styles.copiedText}>{copiedText}</Text>
 
         <View style={styles.paramContainer}>
           <TextInput
