@@ -12,7 +12,6 @@ type Option = 'lowercase' | 'uppercase' | 'symbols' | 'numbers'
 export default () => {
   const { navigate } =
     useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
-  // const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
   const [passwordLength, setPasswordLength] = useState<string>('8')
   const [generatedPassword, setGeneratedPassword] = useState('')
@@ -175,6 +174,7 @@ export default () => {
             <Text style={styles.generateText}>Generate</Text>
           </Pressable>
         </View>
+
         <Pressable
           style={styles.button}
           onPress={() => {
@@ -228,6 +228,7 @@ const getPasswordStrengthColor = (strength: any) => {
 }
 
 const styles = StyleSheet.create({
+  // basic styles
   bg:{
     backgroundColor: '#E8F0F3',
   },
@@ -235,6 +236,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+
+  // title styles
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -245,25 +248,63 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2A9D8F',
   },
+
+  // generated password and copy
+  copy: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 24,
+    marginBottom: 12,
+  },
+  output: {
+    fontSize: 12,
+    backgroundColor: '#FFF',
+    padding: 10,
+    borderRadius: 6,
+    width: 210,
+  },
+  copyIcon: {
+    color: '#2A9D8F',
+    paddingLeft: 8,
+  },
+
+  // password strength
   passwordStrength: {
     fontSize: 12,
     marginBottom: 4,
   },
   strengthMeter: {
     backgroundColor: 'gray',
-    marginBottom: 8,
-    width: 210,
+    marginBottom: 4,
+    width: 230,
     height: 4,
   },
   strengthMeterBar: {
     height: 4,
   },
+
+  // parameters for generating password
   paramContainer: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 4,
+    marginBottom: 24,
+  },
+  bigGridItem: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    width: '65%',
+    height: 48,
+    padding: 12,
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    marginTop: 24,
+    marginHorizontal: 2,
   },
   gridItem: {
     justifyContent: 'center',
@@ -275,21 +316,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 8,
   },
-  bigGridItem: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    width: '65%',
-    height: 48,
-    padding: 12,
-    backgroundColor: '#FFF',
-    borderRadius: 5,
-    margin: 8,
-  },
   selectedButton: {
     backgroundColor: '#D4EBE9',
     borderWidth: 2,
     borderColor: '#2A9D8F',
   },
+
+  // button to generate password
   generateButton: {
     backgroundColor: '#FFF',
     justifyContent: 'center',
@@ -303,6 +336,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#2A9D8F',
   },
+
+  // navigate to "check password"
   button: {
     flex: 1,
     flexDirection: 'row',
@@ -312,7 +347,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 16,
     marginBottom: 16,
-    marginTop: 32,
     width: 230,
   },
   buttonText: {
@@ -322,23 +356,5 @@ const styles = StyleSheet.create({
   icon: {
     color: '#2A9D8F',
   },
-  output: {
-    fontSize: 12,
-    backgroundColor: '#FFF',
-    padding: 10,
-    borderRadius: 6,
-    width: 210,
-  },
-  copy: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 16,
-    marginBottom: 8,
-  },
-  copyIcon: {
-    color: '#2A9D8F',
-    paddingLeft: 8,
-  }
+  
 })
