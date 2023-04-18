@@ -4,43 +4,43 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import { useState } from 'react'
-import zxcvbn from 'zxcvbn';
-
+import zxcvbn from 'zxcvbn'
 
 type Option = 'lowercase' | 'uppercase' | 'symbols' | 'numbers'
 
 export default () => {
-  const { navigate } = useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
+  const { navigate } =
+    useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
+  // const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
-  const [passwordLength, setPasswordLength] = useState<string>('8');
-  const [generatedPassword, setGeneratedPassword] = useState('');
-  const [passwordStrength, setPasswordStrength] = useState<number>(0);
+  const [passwordLength, setPasswordLength] = useState<string>('8')
+  const [generatedPassword, setGeneratedPassword] = useState('')
+  const [passwordStrength, setPasswordStrength] = useState<number>(0)
 
-  const [includeUppercase, setIncludeUppercase] = useState(true);
-  const [includeLowercase, setIncludeLowercase] = useState(true);
-  const [includeNumbers, setIncludeNumbers] = useState(true);
-  const [includeSymbols, setIncludeSymbols] = useState(true);
+  const [includeUppercase, setIncludeUppercase] = useState(true)
+  const [includeLowercase, setIncludeLowercase] = useState(true)
+  const [includeNumbers, setIncludeNumbers] = useState(true)
+  const [includeSymbols, setIncludeSymbols] = useState(true)
 
   const handlePasswordLengthChange = (text: any) => {
-    setPasswordLength(text);
-  };
+    setPasswordLength(text)
+  }
 
   const handleIncludeUppercaseChange = (value: boolean) => {
-    setIncludeUppercase(value);
-  };
+    setIncludeUppercase(value)
+  }
 
   const handleIncludeLowercaseChange = (value: boolean) => {
-    setIncludeLowercase(value);
-  };
+    setIncludeLowercase(value)
+  }
 
   const handleIncludeNumbersChange = (value: boolean) => {
-    setIncludeNumbers(value);
-  };
+    setIncludeNumbers(value)
+  }
 
   const handleIncludeSymbolsChange = (value: boolean) => {
-    setIncludeSymbols(value);
-  };
+    setIncludeSymbols(value)
+  }
 
   const generatePassword = () => {
     const password = generateRandomPassword(
@@ -48,54 +48,64 @@ export default () => {
       includeUppercase,
       includeLowercase,
       includeNumbers,
-      includeSymbols
-    );
-    setGeneratedPassword(password);
+      includeSymbols,
+    )
+    setGeneratedPassword(password)
 
     // Check password strength using zxcvbn
-    const strength = zxcvbn(password).score;
-    setPasswordStrength(strength);
-  };
+    const strength = zxcvbn(password).score
+    setPasswordStrength(strength)
+  }
 
-  const generateRandomPassword = (length: any, uppercase: any, lowercase: any, numbers: any, symbols: any) => {
-    let chars = '';
+  const generateRandomPassword = (
+    length: any,
+    uppercase: any,
+    lowercase: any,
+    numbers: any,
+    symbols: any,
+  ) => {
+    let chars = ''
     if (uppercase) {
-      chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     }
     if (lowercase) {
-      chars += 'abcdefghijklmnopqrstuvwxyz';
+      chars += 'abcdefghijklmnopqrstuvwxyz'
     }
     if (numbers) {
-      chars += '0123456789';
+      chars += '0123456789'
     }
     if (symbols) {
-      chars += '#$%^&_-+';
+      chars += '#$%^&_-+'
     }
 
-    let password = '';
+    let password = ''
     for (let i = 0; i < length; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length));
+      password += chars.charAt(Math.floor(Math.random() * chars.length))
     }
-    return password;
-  };
+    return password
+  }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.bg}>
       <View style={styles.container}>
         <Text style={styles.title}>Generate password</Text>
         <Text style={styles.subtitle}>Choose the parameters</Text>
 
         <Text style={styles.output}>{generatedPassword}</Text>
-          <View>
-            <Text style={styles.passwordStrength}>
-              Password Strength: {getPasswordStrengthLabel(passwordStrength)}
-            </Text>
-            <View style={styles.strengthMeter}>
-              <View
-              style={[styles.strengthMeterBar, { backgroundColor: getPasswordStrengthColor(passwordStrength) }]}
-              />
+        <View>
+          <Text style={styles.passwordStrength}>
+            Password Strength: {getPasswordStrengthLabel(passwordStrength)}
+          </Text>
+          <View style={styles.strengthMeter}>
+            <View
+              style={[
+                styles.strengthMeterBar,
+                { backgroundColor: getPasswordStrengthColor(passwordStrength) },
+              ]}
+            />
           </View>
         </View>
+
         <View style={styles.paramContainer}>
           <TextInput
             keyboardType="numeric"
@@ -106,50 +116,62 @@ export default () => {
           />
 
           <Pressable
-          style={[styles.gridItem, includeUppercase ? styles.selectedButton : styles.gridItem]}
+            style={[
+              styles.gridItem,
+              includeUppercase ? styles.selectedButton : styles.gridItem,
+            ]}
             onPress={() => handleIncludeUppercaseChange(!includeUppercase)}
           >
             <Text>A</Text>
           </Pressable>
 
           <Pressable
-          style={[styles.gridItem, includeLowercase ? styles.selectedButton : styles.gridItem]}
+            style={[
+              styles.gridItem,
+              includeLowercase ? styles.selectedButton : styles.gridItem,
+            ]}
             onPress={() => handleIncludeLowercaseChange(!includeLowercase)}
           >
             <Text>a</Text>
           </Pressable>
 
           <Pressable
-          style={[styles.gridItem, includeSymbols ? styles.selectedButton : styles.gridItem]}
+            style={[
+              styles.gridItem,
+              includeSymbols ? styles.selectedButton : styles.gridItem,
+            ]}
             onPress={() => handleIncludeSymbolsChange(!includeSymbols)}
           >
             <Text>&!</Text>
           </Pressable>
 
           <Pressable
-          style={[styles.gridItem, includeNumbers ? styles.selectedButton : styles.gridItem]}
+            style={[
+              styles.gridItem,
+              includeNumbers ? styles.selectedButton : styles.gridItem,
+            ]}
             onPress={() => handleIncludeNumbersChange(!includeNumbers)}
           >
             <Text>123</Text>
           </Pressable>
 
-          <Pressable
-          style={styles.generateButton}
-            onPress={generatePassword}
-          >
+          <Pressable style={styles.generateButton} onPress={generatePassword}>
             <Text style={styles.generateText}>Generate</Text>
           </Pressable>
-
         </View>
         <Pressable
           style={styles.button}
-            onPress={() => {
-              navigate('Check')
-            }}
-          >
-            <Text style={styles.buttonText}>check your password here</Text>
-            <Ionicons name="arrow-forward-outline"  style={styles.icon} size={23}/>
-          </Pressable>
+          onPress={() => {
+            navigate('Check')
+          }}
+        >
+          <Text style={styles.buttonText}>check your password here</Text>
+          <Ionicons
+            name="arrow-forward-outline"
+            style={styles.icon}
+            size={23}
+          />
+        </Pressable>
       </View>
     </ScrollView>
   )
@@ -158,41 +180,43 @@ export default () => {
 const getPasswordStrengthLabel = (strength: any) => {
   switch (strength) {
     case 0:
-      return 'Weak';
+      return 'Weak'
     case 1:
-      return 'Fair';
+      return 'Fair'
     case 2:
-      return 'Moderate';
+      return 'Moderate'
     case 3:
-      return 'Strong';
+      return 'Strong'
     case 4:
-      return 'Very Strong';
+      return 'Very Strong'
     default:
-      return '';
+      return ''
   }
-};
+}
 
 const getPasswordStrengthColor = (strength: any) => {
   switch (strength) {
     case 0:
-      return 'red';
+      return 'red'
     case 1:
-      return 'orange';
+      return 'orange'
     case 2:
-      return 'yellow';
+      return 'yellow'
     case 3:
-      return 'green';
+      return 'green'
     case 4:
-      return 'blue';
+      return 'blue'
     default:
-      return 'gray';
+      return 'gray'
   }
-};
+}
 
 const styles = StyleSheet.create({
+  bg:{
+    backgroundColor: '#E8F0F3',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#E8F0F3',
     alignItems: 'center',
   },
   title: {
@@ -249,7 +273,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     width: '65%',
     height: 48,
-    padding: 16,
+    padding: 12,
     backgroundColor: '#FFF',
     borderRadius: 5,
     margin: 8,
@@ -268,11 +292,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 8,
   },
-  generateText:{
+  generateText: {
     fontSize: 18,
     color: '#2A9D8F',
   },
-  button:{
+  button: {
     flex: 1,
     flexDirection: 'row',
     backgroundColor: '#FFF',
@@ -284,12 +308,11 @@ const styles = StyleSheet.create({
     marginTop: 32,
     width: 230,
   },
-  buttonText:{
+  buttonText: {
     fontSize: 14,
     color: '#2A9D8F',
   },
-  icon:{
+  icon: {
     color: '#2A9D8F',
-  }
+  },
 })
-
