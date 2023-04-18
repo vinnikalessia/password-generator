@@ -94,18 +94,19 @@ export default () => {
     await Clipboard.setStringAsync(generatedPassword);
   };
 
-  const fetchCopiedText = async () => {
-    const text = await Clipboard.getStringAsync();
-    setCopiedText(text);
-  };
-
   return (
     <ScrollView style={styles.bg}>
       <View style={styles.container}>
         <Text style={styles.title}>Generate password</Text>
         <Text style={styles.subtitle}>Choose the parameters</Text>
 
-        <Text style={styles.output}>{generatedPassword}</Text>
+        <View style={styles.copy}>
+          <Text style={styles.output}>{generatedPassword}</Text>
+          <Pressable onPress={copyToClipboard}>
+            <Ionicons name="clipboard-outline" style={styles.copyIcon} size={23} />
+          </Pressable>
+        </View>
+
         <View>
           <Text style={styles.passwordStrength}>
             Password Strength: {getPasswordStrengthLabel(passwordStrength)}
@@ -119,10 +120,7 @@ export default () => {
             />
           </View>
         </View>
-
-        <Button title="copy" onPress={copyToClipboard}/>
-        <Button title="View copied text" onPress={fetchCopiedText} />
-        <Text style={styles.copiedText}>{copiedText}</Text>
+        
 
         <View style={styles.paramContainer}>
           <TextInput
@@ -247,15 +245,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2A9D8F',
   },
-  output: {
-    fontSize: 12,
-    backgroundColor: '#FFF',
-    padding: 10,
-    borderRadius: 6,
-    marginTop: 16,
-    marginBottom: 8,
-    width: 230,
-  },
   passwordStrength: {
     fontSize: 12,
     marginBottom: 4,
@@ -333,13 +322,23 @@ const styles = StyleSheet.create({
   icon: {
     color: '#2A9D8F',
   },
-  copiedText: {
+  output: {
     fontSize: 12,
     backgroundColor: '#FFF',
     padding: 10,
     borderRadius: 6,
+    width: 210,
+  },
+  copy: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 16,
     marginBottom: 8,
-    width: 230,
   },
+  copyIcon: {
+    color: '#2A9D8F',
+    paddingLeft: 8,
+  }
 })
