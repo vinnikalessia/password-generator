@@ -128,6 +128,7 @@ export default () => {
             onChangeText={handlePasswordLengthChange}
             value={passwordLength}
             style={styles.bigGridItem}
+            maxLength={2}
           />
 
           <Pressable
