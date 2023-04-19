@@ -88,8 +88,6 @@ export default () => {
     return password
   }
 
-  const [copiedText, setCopiedText] = useState('');
-
   const copyToClipboard = async () => {
     await Clipboard.setStringAsync(generatedPassword);
   };
@@ -102,7 +100,7 @@ export default () => {
 
         <View style={styles.copy}>
           <Text style={styles.output}>{generatedPassword}</Text>
-          <Pressable onPress={copyToClipboard}>
+          <Pressable onPress={() => [copyToClipboard, notificationAsync(NotificationFeedbackType.Success)]}>
             <Ionicons name="clipboard-outline" style={styles.copyIcon} size={23} />
           </Pressable>
         </View>
@@ -137,7 +135,7 @@ export default () => {
               styles.gridItem,
               includeUppercase ? styles.selectedButton : styles.gridItem,
             ]}
-            onPress={() => [handleIncludeUppercaseChange(!includeUppercase), notificationAsync(NotificationFeedbackType.Success)]}
+            onPress={() => handleIncludeUppercaseChange(!includeUppercase)}
           >
             <Text>A</Text>
           </Pressable>
