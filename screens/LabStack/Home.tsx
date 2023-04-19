@@ -15,7 +15,7 @@ export default () => {
     useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
 
   const [passwordLength, setPasswordLength] = useState<string>('8')
-  const [generatedPassword, setGeneratedPassword] = useState('')
+  const [generatedPassword, setGeneratedPassword] = useState('output e.g. 8j3k4j')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
 
   const [includeUppercase, setIncludeUppercase] = useState(true)
@@ -52,10 +52,7 @@ export default () => {
       includeSymbols,
     )
     setGeneratedPassword(password)
-    // console.log('generatedPassword in generatePassword => ', password)
     
-
-    // Check password strength using zxcvbn
     const strength = zxcvbn(password).score
     setPasswordStrength(strength)
   }

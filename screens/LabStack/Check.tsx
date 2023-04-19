@@ -20,14 +20,10 @@ export default () => {
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
 
   const handlePassword = (text: any) => {
-    console.log('checkPassword => ', checkPassword)
-    console.log(checkPassword)
     setPassword(text)
   }
 
   const checkingPassword = () => {
-    console.log('checking password')
-
     const strength = zxcvbn(password).score
     setPasswordStrength(strength)
   }
