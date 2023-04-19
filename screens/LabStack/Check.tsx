@@ -19,10 +19,17 @@ export default () => {
   const [checkPassword, setCheckPassword] = useState<string>('')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
 
-  const checkingPassword = (text: any) => {
+  const handlePassword = (text: any) => {
     console.log('checkPassword => ', checkPassword)
     console.log(checkPassword)
     setPassword(text)
+  }
+
+  const checkingPassword = () => {
+    console.log('checking password')
+
+    const strength = zxcvbn(password).score
+    setPasswordStrength(strength)
   }
 
   return (
@@ -34,25 +41,65 @@ export default () => {
           keyboardType='default'
           placeholder='password'
           value={password}
-          onChangeText={checkingPassword}
+          onChangeText={handlePassword}
           style={styles.input}
           />
 
         <Text>{}</Text>
-
         <View>
-          <Text style={styles.passwordStrength}>Password Strength:</Text>
+          <Text style={styles.passwordStrength}>
+            Password Strength: {getPasswordStrengthLabel(passwordStrength)}
+          </Text>
           <View style={styles.strengthMeter}>
-            <View style={[styles.strengthMeterBar]} />
+            <View
+              style={[
+                styles.strengthMeterBar,
+                { backgroundColor: getPasswordStrengthColor(passwordStrength) },
+              ]}
+            />
           </View>
         </View>
 
         <Pressable style={styles.checkButton} onPress={checkingPassword}>
             <Text style={styles.checkText}>Check</Text>
-          </Pressable>
+        </Pressable>
       </View>
     </ScrollView>
   )
+}
+
+const getPasswordStrengthLabel = (strength: any) => {
+  switch (strength) {
+    case 0:
+      return 'Weak'
+    case 1:
+      return 'Fair'
+    case 2:
+      return 'Moderate'
+    case 3:
+      return 'Strong'
+    case 4:
+      return 'Very Strong'
+    default:
+      return ''
+  }
+}
+
+const getPasswordStrengthColor = (strength: any) => {
+  switch (strength) {
+    case 0:
+      return 'red'
+    case 1:
+      return 'orange'
+    case 2:
+      return 'yellow'
+    case 3:
+      return 'green'
+    case 4:
+      return 'blue'
+    default:
+      return 'gray'
+  }
 }
 
 const styles = StyleSheet.create({
