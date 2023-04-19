@@ -6,6 +6,7 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import { useState } from 'react'
 import zxcvbn from 'zxcvbn'
 import * as Clipboard from 'expo-clipboard';
+import { NotificationFeedbackType, notificationAsync } from 'expo-haptics'
 
 type Option = 'lowercase' | 'uppercase' | 'symbols' | 'numbers'
 
@@ -136,7 +137,7 @@ export default () => {
               styles.gridItem,
               includeUppercase ? styles.selectedButton : styles.gridItem,
             ]}
-            onPress={() => handleIncludeUppercaseChange(!includeUppercase)}
+            onPress={() => [handleIncludeUppercaseChange(!includeUppercase), notificationAsync(NotificationFeedbackType.Success)]}
           >
             <Text>A</Text>
           </Pressable>
