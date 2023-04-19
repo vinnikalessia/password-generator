@@ -124,8 +124,8 @@ export default () => {
           <TextInput
             keyboardType="numeric"
             placeholder="length: 8"
-            onChangeText={handlePasswordLengthChange}
             value={passwordLength}
+            onChangeText={handlePasswordLengthChange}
             style={styles.bigGridItem}
             maxLength={2}
           />

@@ -15,13 +15,14 @@ export default () => {
   const { setOptions, goBack } =
     useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
 
-    const [password, setpassword] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
   const [checkPassword, setCheckPassword] = useState<string>('')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
 
-  const checkingPassword = () => {
+  const checkingPassword = (text: any) => {
     console.log('checkPassword => ', checkPassword)
     console.log(checkPassword)
+    setPassword(text)
   }
 
   return (
@@ -31,14 +32,11 @@ export default () => {
 
         <TextInput
           keyboardType='default'
-          style={styles.input}
-          value={password}
           placeholder='password'
-          onChangeText={text => {
-              setCheckPassword(text)
-              checkingPassword()
-            }}
-        />
+          value={password}
+          onChangeText={checkingPassword}
+          style={styles.input}
+          />
 
         <Text>{}</Text>
 
