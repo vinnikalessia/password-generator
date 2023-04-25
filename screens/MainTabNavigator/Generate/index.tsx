@@ -1,9 +1,7 @@
-// import { ParamListBase, useNavigation } from '@react-navigation/native'
-// import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types'
 import { View, Text, Pressable, StyleSheet} from 'react-native'
 import Slider from '@react-native-community/slider';
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { ScrollView, TextInput } from 'react-native-gesture-handler'
+import { ScrollView } from 'react-native-gesture-handler'
 import { useState } from 'react'
 import zxcvbn from 'zxcvbn'
 import * as Clipboard from 'expo-clipboard';
@@ -84,6 +82,7 @@ export default () => {
   }
 
   const copyToClipboard = async () => {
+    console.log('copied to clipboard')
     await Clipboard.setStringAsync(generatedPassword);
   };
 
