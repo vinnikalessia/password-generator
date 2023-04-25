@@ -28,6 +28,9 @@ Via dit: [react-native-password-strength-meter](https://www.npmjs.com/package/re
 Om de app te kunnen gebruiken, moet de gebruiker een QR-code scannen met het wachtwoord om in te kunnen loggen.<br>
 Via dit: [Barcodescanner](https://docs.expo.dev/versions/v48.0.0/sdk/bar-code-scanner/)
 
+React-native heeft geen slider meer, dus daarvoor gebruik ik de slider van de community: [react-native-slider](https://github.com/callstack/react-native-slider)
+
+
 Daarnaast kan de gebruiker zijn bestaande wachtwoorden ingeven om te kijken of het sterk genoeg is.
 <br><br>
 ## Waarom kies ik voor dit onderwerp?
