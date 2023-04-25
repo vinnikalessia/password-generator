@@ -129,19 +129,9 @@ export default () => {
           minimumTrackTintColor="#2A9D8F"
           maximumTrackTintColor="#2A9D8F"
           thumbTintColor="#2A9D8F"
+          tapToSeek={true}
         />
         <Text style={{ textAlign: 'center' }}>Length: {sliderValue}</Text>
-        
-        {/* https://github.com/callstack/react-native-slider */}
-
-          {/* <TextInput
-            keyboardType="numeric"
-            placeholder="length: 8"
-            value={passwordLength}
-            onChangeText={handlePasswordLengthChange}
-            style={styles.bigGridItem}
-            maxLength={2}
-          /> */}
 
           <Pressable
             style={[
