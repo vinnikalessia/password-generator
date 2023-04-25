@@ -1,6 +1,7 @@
-import { ParamListBase, useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types'
-import { View, Text, Pressable, StyleSheet, Button } from 'react-native'
+// import { ParamListBase, useNavigation } from '@react-navigation/native'
+// import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types'
+import { View, Text, Pressable, StyleSheet} from 'react-native'
+import Slider from '@react-native-community/slider';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import { useState } from 'react'
@@ -112,14 +113,21 @@ export default () => {
         </View>
 
         <View style={styles.paramContainer}>
-          <TextInput
+        <Slider
+          style={{width: 200, height: 40}}
+          minimumValue={0}
+          maximumValue={99}
+          minimumTrackTintColor="#FFFFFF"
+          maximumTrackTintColor="#000000"
+        />
+          {/* <TextInput
             keyboardType="numeric"
             placeholder="length: 8"
             value={passwordLength}
             onChangeText={handlePasswordLengthChange}
             style={styles.bigGridItem}
             maxLength={2}
-          />
+          /> */}
 
           <Pressable
             style={[

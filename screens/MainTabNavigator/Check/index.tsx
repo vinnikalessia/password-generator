@@ -28,8 +28,6 @@ export default () => {
   }
 
   function handleOkPress(psw:string) {
-    console.log('event => enter')
-    console.log('password => ', psw)
     handlePassword(psw)
     checkingPassword()
   }
@@ -45,7 +43,6 @@ export default () => {
           value={password}
           onChangeText={handlePassword}
           style={styles.input}
-          // onSubmitEditing={handleOkPress}
           onSubmitEditing={() => handleOkPress(password)}
           />
 
