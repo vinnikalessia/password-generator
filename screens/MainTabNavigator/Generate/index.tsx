@@ -122,10 +122,10 @@ export default () => {
         <Slider
           style={styles.slider}
           minimumValue={4}
-          maximumValue={99}
+          maximumValue={50}
+          step={1}
           value={sliderValue}
           onValueChange={onValueChange}
-          step={1}
           minimumTrackTintColor="#2A9D8F"
           maximumTrackTintColor="#2A9D8F"
           thumbTintColor="#2A9D8F"
