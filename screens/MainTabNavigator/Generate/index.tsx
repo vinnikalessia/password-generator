@@ -115,7 +115,6 @@ export default () => {
             />
           </View>
         </View>
-        
 
         <View style={styles.paramContainer}>
           <TextInput
@@ -171,21 +170,6 @@ export default () => {
             <Text style={styles.generateText}>Generate</Text>
           </Pressable>
         </View>
-
-        
-        <Pressable
-          style={styles.button}
-          onPress={() => {
-            navigate('Check')
-          }}
-        >
-          <Text style={styles.buttonText}>check your password here</Text>
-          <Ionicons
-            name="arrow-forward-outline"
-            style={styles.icon}
-            size={23}
-          />
-        </Pressable>
       </View>
     </ScrollView>
   )
@@ -233,6 +217,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    marginTop: 48,
   },
 
   // title styles
@@ -291,28 +276,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 4,
-    marginBottom: 24,
+    width: 235,
   },
   bigGridItem: {
     justifyContent: 'center',
     alignItems: 'flex-start',
-    width: '65%',
+    width: '100%',
     height: 48,
     padding: 12,
     backgroundColor: '#FFF',
     borderRadius: 5,
-    marginTop: 24,
+    marginTop: 18,
     marginHorizontal: 2,
   },
   gridItem: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '30%',
+    width: '46%',
     height: 96,
-    padding: 16,
     backgroundColor: '#FFF',
     borderRadius: 5,
-    margin: 8,
+    margin: 4,
   },
   selectedButton: {
     backgroundColor: '#D4EBE9',
