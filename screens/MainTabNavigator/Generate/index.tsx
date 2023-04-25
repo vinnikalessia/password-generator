@@ -13,6 +13,8 @@ export default () => {
   const [passwordLength, setPasswordLength] = useState<string>('8')
   const [generatedPassword, setGeneratedPassword] = useState('output e.g. 8j3k4j')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
+  
+  const [sliderValue, setSliderValue] = useState<number>(4);
 
   const [includeUppercase, setIncludeUppercase] = useState(true)
   const [includeLowercase, setIncludeLowercase] = useState(true)
@@ -85,6 +87,10 @@ export default () => {
     await Clipboard.setStringAsync(generatedPassword);
   };
 
+  const onValueChange = (value: number) => {
+    setSliderValue(value);
+  }
+
   return (
     <ScrollView style={styles.bg}>
       <View style={styles.container}>
@@ -114,12 +120,20 @@ export default () => {
 
         <View style={styles.paramContainer}>
         <Slider
-          style={{width: 200, height: 40}}
-          minimumValue={0}
+          style={styles.slider}
+          minimumValue={4}
           maximumValue={99}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#000000"
+          value={sliderValue}
+          onValueChange={onValueChange}
+          step={1}
+          minimumTrackTintColor="#2A9D8F"
+          maximumTrackTintColor="#2A9D8F"
+          thumbTintColor="#2A9D8F"
         />
+        <Text style={{ textAlign: 'center' }}>Length: {sliderValue}</Text>
+        
+        {/* https://github.com/callstack/react-native-slider */}
+
           {/* <TextInput
             keyboardType="numeric"
             placeholder="length: 8"
@@ -281,16 +295,11 @@ const styles = StyleSheet.create({
     marginTop: 4,
     width: 235,
   },
-  bigGridItem: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    width: '100%',
-    height: 48,
-    padding: 12,
-    backgroundColor: '#FFF',
-    borderRadius: 5,
-    marginTop: 18,
-    marginHorizontal: 2,
+  slider:{
+    width: 165,
+    height: 40,
+    color: '#2A9D8F',
+    marginLeft: -30,
   },
   gridItem: {
     justifyContent: 'center',
