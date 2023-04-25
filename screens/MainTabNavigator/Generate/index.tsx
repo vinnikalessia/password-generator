@@ -88,6 +88,7 @@ export default () => {
   };
 
   const onValueChange = (value: number) => {
+    handlePasswordLengthChange(value.toString());
     setSliderValue(value);
   }
 
