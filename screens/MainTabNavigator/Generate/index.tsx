@@ -8,12 +8,7 @@ import zxcvbn from 'zxcvbn'
 import * as Clipboard from 'expo-clipboard';
 import { NotificationFeedbackType, notificationAsync } from 'expo-haptics'
 
-type Option = 'lowercase' | 'uppercase' | 'symbols' | 'numbers'
-
 export default () => {
-  const { navigate } =
-    useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
-
   const [passwordLength, setPasswordLength] = useState<string>('8')
   const [generatedPassword, setGeneratedPassword] = useState('output e.g. 8j3k4j')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
@@ -318,25 +313,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#2A9D8F',
   },
-
-  // navigate to "check password"
-  button: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#FFF',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderRadius: 5,
-    padding: 16,
-    marginBottom: 16,
-    width: 230,
-  },
-  buttonText: {
-    fontSize: 14,
-    color: '#2A9D8F',
-  },
-  icon: {
-    color: '#2A9D8F',
-  },
-  
 })

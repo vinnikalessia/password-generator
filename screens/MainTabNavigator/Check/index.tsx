@@ -9,7 +9,6 @@ import { View, Text, Pressable, StyleSheet} from 'react-native'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import zxcvbn from 'zxcvbn'
 import * as React from 'react';
-import * as Clipboard from 'expo-clipboard';
 
 export default () => {
   const { setOptions, goBack } =
@@ -28,6 +27,13 @@ export default () => {
     setPasswordStrength(strength)
   }
 
+  function handleOkPress(psw:string) {
+    console.log('event => enter')
+    console.log('password => ', psw)
+    handlePassword(psw)
+    checkingPassword()
+  }
+
   return (
     <ScrollView style={styles.bg}>
       <View style={styles.container}>
@@ -39,9 +45,10 @@ export default () => {
           value={password}
           onChangeText={handlePassword}
           style={styles.input}
+          // onSubmitEditing={handleOkPress}
+          onSubmitEditing={() => handleOkPress(password)}
           />
 
-        <Text>{}</Text>
         <View>
           <Text style={styles.passwordStrength}>
             Password Strength: {getPasswordStrengthLabel(passwordStrength)}
@@ -103,6 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#E8F0F3',
     alignItems: 'center',
+    marginTop: 48,
   },
   title: {
     fontSize: 24,
