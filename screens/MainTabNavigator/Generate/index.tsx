@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet} from 'react-native'
+import { View, Text, Pressable, StyleSheet, TextInput} from 'react-native'
 import Slider from '@react-native-community/slider';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -11,6 +11,7 @@ export default () => {
   const [passwordLength, setPasswordLength] = useState<string>('8')
   const [generatedPassword, setGeneratedPassword] = useState('output e.g. 8j3k4j')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
+  const [textInputValue, setTextInputValue] = useState('4');
   
   const [sliderValue, setSliderValue] = useState<number>(4);
 
@@ -91,6 +92,22 @@ export default () => {
     handlePasswordLengthChange(value.toString());
     setSliderValue(value);
   }
+  
+  const handleSliderChange = (value: any) => {
+    handlePasswordLengthChange(value);
+    setSliderValue(value);
+    setTextInputValue(String(value));
+  };
+
+  const handleTextInputChange = (value: any) => {
+    handlePasswordLengthChange(value);
+    const numericValue = Number(value);
+    if (!isNaN(numericValue)) {
+      const constrainedValue = Math.min(Math.max(numericValue, 4), 50);
+      setSliderValue(constrainedValue);
+      setTextInputValue(String(constrainedValue));
+    }
+  };
 
   return (
     <ScrollView style={styles.bg}>
@@ -120,19 +137,35 @@ export default () => {
         </View>
 
         <View style={styles.paramContainer}>
-        <Slider
+        {/* <Slider
           style={styles.slider}
           minimumValue={4}
-          maximumValue={50}
-          step={1}
+          maximumValue={99}
           value={sliderValue}
           onValueChange={onValueChange}
+          step={1}
           minimumTrackTintColor="#2A9D8F"
           maximumTrackTintColor="#2A9D8F"
           thumbTintColor="#2A9D8F"
-          tapToSeek={true}
         />
-        <Text style={{ textAlign: 'center' }}>Length: {sliderValue}</Text>
+        <Text style={{ textAlign: 'center' }}>Length: {sliderValue}</Text> */}
+        <Slider
+            style={styles.slider}
+            minimumValue={4}
+            maximumValue={50}
+            step={1}
+            value={sliderValue}
+            onValueChange={handleSliderChange}
+            minimumTrackTintColor="#2A9D8F"
+            maximumTrackTintColor="#2A9D8F"
+            thumbTintColor="#2A9D8F"
+            tapToSeek={true}
+          />
+          <TextInput
+            keyboardType="numeric"
+            value={textInputValue}
+            onChangeText={handleTextInputChange}
+          />
 
           <Pressable
             style={[
