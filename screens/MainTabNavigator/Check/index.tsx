@@ -1,8 +1,4 @@
-import {
-  ParamListBase,
-  useFocusEffect,
-  useNavigation,
-} from '@react-navigation/native'
+import { ParamListBase, useFocusEffect, useNavigation, } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useState } from 'react'
 import { View, Text, Pressable, StyleSheet} from 'react-native'
@@ -11,11 +7,7 @@ import zxcvbn from 'zxcvbn'
 import * as React from 'react';
 
 export default () => {
-  const { setOptions, goBack } =
-    useNavigation<StackNavigationProp<ParamListBase, 'LabStack'>>()
-
-    const [password, setPassword] = useState<string>('')
-  const [checkPassword, setCheckPassword] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
 
   const handlePassword = (text: any) => {
@@ -44,6 +36,7 @@ export default () => {
           onChangeText={handlePassword}
           style={styles.input}
           onSubmitEditing={() => handleOkPress(password)}
+          maxLength={50}
           />
 
         <View>
