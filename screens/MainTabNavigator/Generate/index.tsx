@@ -8,7 +8,7 @@ import * as Clipboard from 'expo-clipboard';
 import { NotificationFeedbackType, notificationAsync } from 'expo-haptics'
 
 export default () => {
-  const [passwordLength, setPasswordLength] = useState<string>('8')
+  const [passwordLength, setPasswordLength] = useState<string>('4')
   const [generatedPassword, setGeneratedPassword] = useState('output e.g. 8j3k4j')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
   const [textInputValue, setTextInputValue] = useState('4');
@@ -88,10 +88,6 @@ export default () => {
     await Clipboard.setStringAsync(generatedPassword);
   };
 
-  const onValueChange = (value: number) => {
-    handlePasswordLengthChange(value.toString());
-    setSliderValue(value);
-  }
   
   const handleSliderChange = (value: any) => {
     handlePasswordLengthChange(value);
@@ -100,11 +96,11 @@ export default () => {
   };
 
   const handleTextInputChange = (value: any) => {
-    handlePasswordLengthChange(value);
     const numericValue = Number(value);
     if (!isNaN(numericValue)) {
       const constrainedValue = Math.min(Math.max(numericValue, 4), 50);
       setSliderValue(constrainedValue);
+      handlePasswordLengthChange(constrainedValue);
       setTextInputValue(String(constrainedValue));
     }
   };
