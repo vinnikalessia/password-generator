@@ -3,6 +3,8 @@ import { View, Text, Alert, StyleSheet } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { useNavigation } from '@react-navigation/native'
 import { MainTabNavigator } from './MainTabNavigator'
+import styles from "../styles/login"
+
 
 export default () => {
   const [qrData, setQrData] = useState<string | null>(null)
@@ -14,14 +16,6 @@ export default () => {
       setScanningEnabled(false)
       if (data === 'My_password_is_1234') {
         setQrData(data)
-        Alert.alert('Success', 'Login successful!', [
-          {
-            text: 'OK',
-            onPress: () => {
-              return <MainTabNavigator />
-            },
-          },
-        ])
       } else {
         Alert.alert('Error', 'Incorrect QR code, please try again', [
           {
@@ -57,21 +51,3 @@ export default () => {
   }
 }
 
-const styles = StyleSheet.create({
-  generic: {
-    flex: 1,
-    backgroundColor: '#264653',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  header: {
-    marginBottom: 20,
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-
-  text: {
-    marginTop: 20,
-  },
-})

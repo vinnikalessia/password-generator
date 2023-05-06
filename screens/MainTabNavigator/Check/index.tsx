@@ -6,6 +6,10 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import zxcvbn from 'zxcvbn'
 import * as React from 'react';
 
+// styles
+import strength from "../../../styles/strength"
+import styles from '../../../styles/check'
+
 export default () => {
   const [password, setPassword] = useState<string>('')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
@@ -40,13 +44,13 @@ export default () => {
           />
 
         <View>
-          <Text style={styles.passwordStrength}>
+          <Text style={strength.passwordStrength}>
             Password Strength: {getPasswordStrengthLabel(passwordStrength)}
           </Text>
-          <View style={styles.strengthMeter}>
+          <View style={strength.strengthMeter}>
             <View
               style={[
-                styles.strengthMeterBar,
+                strength.strengthMeterBar,
                 { backgroundColor: getPasswordStrengthColor(passwordStrength) },
               ]}
             />
@@ -94,59 +98,4 @@ const getPasswordStrengthColor = (strength: any) => {
       return 'gray'
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#E8F0F3',
-    alignItems: 'center',
-    marginTop: 48,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 20,
-    color: '#2A9D8F',
-  },
-  passwordStrength: {
-    fontSize: 12,
-    marginBottom: 4,
-  },
-  strengthMeter: {
-    backgroundColor: 'gray',
-    marginBottom: 24,
-    width: 232,
-    height: 4,
-  },
-  strengthMeterBar: {
-    height: 4,
-  },
-  input: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    height: 48,
-    padding: 12,
-    backgroundColor: '#FFF',
-    borderRadius: 5,
-    margin: 24,
-    width: '65%',
-  },
-  checkButton: {
-    backgroundColor: '#FFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '65%',
-    height: 56,
-    borderRadius: 5,
-    margin: 8,
-  },
-  checkText: {
-    fontSize: 18,
-    color: '#2A9D8F',
-  },
-  bg:{
-    backgroundColor: '#E8F0F3',
-  },
-})
-
 

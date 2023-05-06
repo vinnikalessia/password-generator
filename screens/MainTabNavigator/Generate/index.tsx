@@ -7,6 +7,11 @@ import zxcvbn from 'zxcvbn'
 import * as Clipboard from 'expo-clipboard';
 import { NotificationFeedbackType, notificationAsync } from 'expo-haptics'
 
+// styles
+import strength from "../../../styles/strength"
+import styles from '../../../styles/generate'
+
+
 export default () => {
   const [passwordLength, setPasswordLength] = useState<string>('4')
   const [generatedPassword, setGeneratedPassword] = useState('output e.g. 8j3k4j')
@@ -103,7 +108,6 @@ export default () => {
     }
     setTextInputValue(value);
   };
-  
 
   const handleTextInputSubmit = () => {
     const numericValue = parseInt(textInputValue);
@@ -130,13 +134,13 @@ export default () => {
         </View>
 
         <View>
-          <Text style={styles.passwordStrength}>
+          <Text style={strength.passwordStrength}>
             Password Strength: {getPasswordStrengthLabel(passwordStrength)}
           </Text>
-          <View style={styles.strengthMeter}>
+          <View style={strength.strengthMeter}>
             <View
               style={[
-                styles.strengthMeterBar,
+                strength.strengthMeterBar,
                 { backgroundColor: getPasswordStrengthColor(passwordStrength) },
               ]}
             />
@@ -246,108 +250,3 @@ const getPasswordStrengthColor = (strength: any) => {
   }
 }
 
-const styles = StyleSheet.create({
-  // basic styles
-  bg:{
-    backgroundColor: '#E8F0F3',
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 48,
-  },
-
-  // title styles
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 20,
-    color: '#2A9D8F',
-  },
-  subtitle: {
-    fontSize: 14,
-    color: '#2A9D8F',
-  },
-
-  // generated password and copy
-  copy: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 24,
-    marginBottom: 12,
-  },
-  output: {
-    fontSize: 12,
-    backgroundColor: '#FFF',
-    padding: 10,
-    borderRadius: 6,
-    width: 210,
-  },
-  copyIcon: {
-    color: '#2A9D8F',
-    paddingLeft: 8,
-  },
-
-  // password strength
-  passwordStrength: {
-    fontSize: 12,
-    marginBottom: 4,
-  },
-  strengthMeter: {
-    backgroundColor: 'gray',
-    marginBottom: 4,
-    width: 230,
-    height: 4,
-  },
-  strengthMeterBar: {
-    height: 4,
-  },
-
-  // parameters for generating password
-  paramContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 4,
-    width: 235,
-  },
-  slider:{
-    width: 165,
-    height: 40,
-    color: '#2A9D8F',
-    marginLeft: -30,
-  },
-  gridItem: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '46%',
-    height: 96,
-    backgroundColor: '#FFF',
-    borderRadius: 5,
-    margin: 4,
-  },
-  selectedButton: {
-    backgroundColor: '#D4EBE9',
-    borderWidth: 2,
-    borderColor: '#2A9D8F',
-  },
-
-  // button to generate password
-  generateButton: {
-    backgroundColor: '#FFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '65%',
-    height: 56,
-    borderRadius: 5,
-    margin: 8,
-  },
-  generateText: {
-    fontSize: 18,
-    color: '#2A9D8F',
-  },
-})
