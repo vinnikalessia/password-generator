@@ -126,6 +126,7 @@ export default () => {
         <Text style={styles.title}>Generate password</Text>
         <Text style={styles.subtitle}>Choose the parameters</Text>
 
+        {/* output & clipboard */}
         <View style={styles.copy}>
           <Text style={styles.output}>{generatedPassword}</Text>
           <Pressable onPress={copyToClipboard}>
@@ -133,7 +134,8 @@ export default () => {
           </Pressable>
         </View>
 
-        <View>
+        {/* strengthmeter */}
+        <View> 
           <Text style={strength.passwordStrength}>
             Password Strength: {getPasswordStrengthLabel(passwordStrength)}
           </Text>
@@ -147,6 +149,7 @@ export default () => {
           </View>
         </View>
 
+        {/* slider & textinput & params */}
         <View style={styles.paramContainer}>
         <Slider
             style={styles.slider}
@@ -207,6 +210,7 @@ export default () => {
             <Text>123</Text>
           </Pressable>
 
+          {/* generate button */}
           <Pressable style={styles.generateButton} onPress={generatePassword}>
             <Text style={styles.generateText}>Generate</Text>
           </Pressable>
