@@ -95,14 +95,25 @@ export default () => {
     setTextInputValue(String(value));
   };
 
-  const handleTextInputChange = (value: any) => {
-    const numericValue = Number(value);
-    if (!isNaN(numericValue)) {
-      const constrainedValue = Math.min(Math.max(numericValue, 4), 50);
-      setSliderValue(constrainedValue);
-      handlePasswordLengthChange(constrainedValue);
-      setTextInputValue(String(constrainedValue));
+  const handleTextInputChange = (value: string) => {
+    const numericValue = parseInt(value);
+    if (isNaN(numericValue)) {
+      setTextInputValue(value);
+      return;
     }
+    setTextInputValue(value);
+  };
+  
+
+  const handleTextInputSubmit = () => {
+    const numericValue = parseInt(textInputValue);
+    if (isNaN(numericValue)) {
+      return;
+    }
+    const constrainedValue = Math.max(4, Math.min(numericValue, 50));
+    setSliderValue(constrainedValue);
+    handlePasswordLengthChange(constrainedValue);
+    setTextInputValue(String(constrainedValue));
   };
 
   return (
@@ -133,18 +144,6 @@ export default () => {
         </View>
 
         <View style={styles.paramContainer}>
-        {/* <Slider
-          style={styles.slider}
-          minimumValue={4}
-          maximumValue={99}
-          value={sliderValue}
-          onValueChange={onValueChange}
-          step={1}
-          minimumTrackTintColor="#2A9D8F"
-          maximumTrackTintColor="#2A9D8F"
-          thumbTintColor="#2A9D8F"
-        />
-        <Text style={{ textAlign: 'center' }}>Length: {sliderValue}</Text> */}
         <Slider
             style={styles.slider}
             minimumValue={4}
@@ -161,6 +160,7 @@ export default () => {
             keyboardType="numeric"
             value={textInputValue}
             onChangeText={handleTextInputChange}
+            onSubmitEditing={handleTextInputSubmit}
           />
 
           <Pressable
