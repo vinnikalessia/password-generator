@@ -1,11 +1,11 @@
-import {
-    BottomTabNavigationOptions,
-    createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs'
+// imports
+import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import 'react-native-gesture-handler';
+import Ionicons from '@expo/vector-icons/Ionicons'
 import Generate from './Generate';
 import Check from './Check';
-import Ionicons from '@expo/vector-icons/Ionicons'
+
+// styles
 import styles from "../../styles/colors"
 
 const Tab = createBottomTabNavigator()

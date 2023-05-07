@@ -1,7 +1,8 @@
+// imports
 import React, { useState, useEffect } from 'react'
-import { View, Text, Alert, StyleSheet } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import { useNavigation } from '@react-navigation/native'
+// import { useNavigation } from '@react-navigation/native'
 import { MainTabNavigator } from './MainTabNavigator'
 import styles from "../styles/login"
 
@@ -9,7 +10,7 @@ import styles from "../styles/login"
 export default () => {
   const [qrData, setQrData] = useState<string | null>(null)
   const [scanningEnabled, setScanningEnabled] = useState(true)
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   const handleBarCodeScanned = ({ data }: { data: string }) => {
     if (scanningEnabled) {

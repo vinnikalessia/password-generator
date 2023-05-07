@@ -1,5 +1,5 @@
 // imports
-import { View, Text, Pressable} from 'react-native'
+import { View, Text, Pressable, Alert} from 'react-native'
 import { NotificationFeedbackType, notificationAsync } from 'expo-haptics'
 import { setStringAsync } from 'expo-clipboard';
 import Ionicons from '@expo/vector-icons/Ionicons'
@@ -10,7 +10,11 @@ import styles from '../styles/generate'
 export default ({generatedPassword}: {generatedPassword: string}) => {
     const copyToClipboard = async () => {
         notificationAsync(NotificationFeedbackType.Success)
-        console.log('copied to clipboard')
+        Alert.alert('Copied to clipboard', 'Your password is copied to clipboard.', [
+          {
+            text: 'OK'
+          },
+        ])
         await setStringAsync(generatedPassword);
     };
 
