@@ -7,8 +7,8 @@ import zxcvbn from 'zxcvbn'
 import * as React from 'react';
 
 // styles
-import strength from "../../../styles/strength"
 import styles from '../../../styles/check'
+import Strengthmeter from '../../../components/Strengthmeter'
 
 export default () => {
   const [password, setPassword] = useState<string>('')
@@ -43,19 +43,8 @@ export default () => {
           maxLength={50}
           />
 
-        <View>
-          <Text style={strength.passwordStrength}>
-            Password Strength: {getPasswordStrengthLabel(passwordStrength)}
-          </Text>
-          <View style={strength.strengthMeter}>
-            <View
-              style={[
-                strength.strengthMeterBar,
-                { backgroundColor: getPasswordStrengthColor(passwordStrength) },
-              ]}
-            />
-          </View>
-        </View>
+        {/* strengthmeter */}
+        <Strengthmeter passwordStrength={passwordStrength}/>
 
         <Pressable style={styles.checkButton} onPress={checkingPassword}>
             <Text style={styles.checkText}>Check</Text>
@@ -65,37 +54,5 @@ export default () => {
   )
 }
 
-const getPasswordStrengthLabel = (strength: any) => {
-  switch (strength) {
-    case 0:
-      return 'Weak'
-    case 1:
-      return 'Fair'
-    case 2:
-      return 'Moderate'
-    case 3:
-      return 'Strong'
-    case 4:
-      return 'Very Strong'
-    default:
-      return ''
-  }
-}
 
-const getPasswordStrengthColor = (strength: any) => {
-  switch (strength) {
-    case 0:
-      return 'red'
-    case 1:
-      return 'orange'
-    case 2:
-      return 'yellow'
-    case 3:
-      return 'green'
-    case 4:
-      return 'blue'
-    default:
-      return 'gray'
-  }
-}
 

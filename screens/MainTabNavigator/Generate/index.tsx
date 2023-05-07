@@ -11,13 +11,15 @@ import { NotificationFeedbackType, notificationAsync } from 'expo-haptics'
 import strength from "../../../styles/strength"
 import styles from '../../../styles/generate'
 
+// components
+import Strengthmeter from '../../../components/Strengthmeter'
 
 export default () => {
   const [passwordLength, setPasswordLength] = useState<string>('4')
   const [generatedPassword, setGeneratedPassword] = useState('output e.g. 8j3k4j')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
   const [textInputValue, setTextInputValue] = useState('4');
-  
+
   const [sliderValue, setSliderValue] = useState<number>(4);
 
   const [includeUppercase, setIncludeUppercase] = useState(true)
@@ -54,7 +56,7 @@ export default () => {
       includeSymbols,
     )
     setGeneratedPassword(password)
-    
+
     const strength = zxcvbn(password).score
     setPasswordStrength(strength)
   }
@@ -93,7 +95,6 @@ export default () => {
     await Clipboard.setStringAsync(generatedPassword);
   };
 
-  
   const handleSliderChange = (value: any) => {
     handlePasswordLengthChange(value);
     setSliderValue(value);
@@ -135,19 +136,7 @@ export default () => {
         </View>
 
         {/* strengthmeter */}
-        <View> 
-          <Text style={strength.passwordStrength}>
-            Password Strength: {getPasswordStrengthLabel(passwordStrength)}
-          </Text>
-          <View style={strength.strengthMeter}>
-            <View
-              style={[
-                strength.strengthMeterBar,
-                { backgroundColor: getPasswordStrengthColor(passwordStrength) },
-              ]}
-            />
-          </View>
-        </View>
+        <Strengthmeter passwordStrength={passwordStrength}/>
 
         {/* slider & textinput & params */}
         <View style={styles.paramContainer}>
@@ -219,38 +208,3 @@ export default () => {
     </ScrollView>
   )
 }
-
-const getPasswordStrengthLabel = (strength: any) => {
-  switch (strength) {
-    case 0:
-      return 'Weak'
-    case 1:
-      return 'Fair'
-    case 2:
-      return 'Moderate'
-    case 3:
-      return 'Strong'
-    case 4:
-      return 'Very Strong'
-    default:
-      return ''
-  }
-}
-
-const getPasswordStrengthColor = (strength: any) => {
-  switch (strength) {
-    case 0:
-      return 'red'
-    case 1:
-      return 'orange'
-    case 2:
-      return 'yellow'
-    case 3:
-      return 'green'
-    case 4:
-      return 'blue'
-    default:
-      return 'gray'
-  }
-}
-
