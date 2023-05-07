@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet, TextInput} from 'react-native'
+import { View, Text, Pressable} from 'react-native'
 import styles from '../styles/generate'
 
 import { NotificationFeedbackType, notificationAsync } from 'expo-haptics'

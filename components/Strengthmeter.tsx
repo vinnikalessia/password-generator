@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet, TextInput} from 'react-native'
+import { View, Text } from 'react-native'
 import strength from "../styles/strength"
 import colors from '../styles/colors'
 

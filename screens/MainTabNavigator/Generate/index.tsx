@@ -10,6 +10,7 @@ import styles from '../../../styles/generate'
 // components
 import Strengthmeter from '../../../components/Strengthmeter'
 import Clipboard from '../../../components/Clipboard'
+import ParamPressable from '../../../components/ParamPressable';
 
 export default () => {
   const [passwordLength, setPasswordLength] = useState<string>('4')
@@ -145,45 +146,11 @@ export default () => {
             onSubmitEditing={handleTextInputSubmit}
           />
 
-          <Pressable
-            style={[
-              styles.gridItem,
-              includeUppercase ? styles.selectedButton : styles.gridItem,
-            ]}
-            onPress={() => handleIncludeUppercaseChange(!includeUppercase)}
-          >
-            <Text>A</Text>
-          </Pressable>
-
-          <Pressable
-            style={[
-              styles.gridItem,
-              includeLowercase ? styles.selectedButton : styles.gridItem,
-            ]}
-            onPress={() => handleIncludeLowercaseChange(!includeLowercase)}
-          >
-            <Text>a</Text>
-          </Pressable>
-
-          <Pressable
-            style={[
-              styles.gridItem,
-              includeSymbols ? styles.selectedButton : styles.gridItem,
-            ]}
-            onPress={() => handleIncludeSymbolsChange(!includeSymbols)}
-          >
-            <Text>&!</Text>
-          </Pressable>
-
-          <Pressable
-            style={[
-              styles.gridItem,
-              includeNumbers ? styles.selectedButton : styles.gridItem,
-            ]}
-            onPress={() => handleIncludeNumbersChange(!includeNumbers)}
-          >
-            <Text>123</Text>
-          </Pressable>
+          {/* pressables */}
+          <ParamPressable onChange={handleIncludeUppercaseChange} include={includeUppercase} handleChange={handleIncludeUppercaseChange} context="uppercase"/>
+          <ParamPressable onChange={handleIncludeLowercaseChange} include={includeLowercase} handleChange={handleIncludeLowercaseChange} context="lowercase"/>
+          <ParamPressable onChange={handleIncludeSymbolsChange} include={includeSymbols} handleChange={handleIncludeSymbolsChange} context="symbols"/>
+          <ParamPressable onChange={handleIncludeNumbersChange} include={includeNumbers} handleChange={handleIncludeNumbersChange} context="numbers"/>
 
           {/* generate button */}
           <Pressable style={styles.generateButton} onPress={generatePassword}>
