@@ -1,9 +1,11 @@
+// imports
 import { View, Text, Pressable} from 'react-native'
-import styles from '../styles/generate'
-
 import { NotificationFeedbackType, notificationAsync } from 'expo-haptics'
 import { setStringAsync } from 'expo-clipboard';
 import Ionicons from '@expo/vector-icons/Ionicons'
+
+// styles
+import styles from '../styles/generate'
 
 export default ({generatedPassword}: {generatedPassword: string}) => {
     const copyToClipboard = async () => {

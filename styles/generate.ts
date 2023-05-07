@@ -55,12 +55,27 @@ export default StyleSheet.create({
         marginTop: 4,
         width: 235,
       },
+
+      // slider and textinput
       slider:{
-        width: 165,
+        width: 180,
         height: 40,
         color: colors.neutral[100],
-        marginLeft: -30,
+        marginLeft: -10,
+        marginRight: 4,
+        marginBottom: 4,
       },
+      sliderText: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.neutral[700],
+        borderRadius: 5,
+        paddingVertical: 4,
+        marginRight: 4,
+      },
+
+      // grid of buttons
       gridItem: {
         justifyContent: 'center',
         alignItems: 'center',

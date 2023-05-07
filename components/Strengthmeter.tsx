@@ -1,5 +1,10 @@
+// imports
 import { View, Text } from 'react-native'
+
+// styles
 import strength from "../styles/strength"
+
+// colors
 import colors from '../styles/colors'
 
 export default ({passwordStrength} : {passwordStrength: number}) => {

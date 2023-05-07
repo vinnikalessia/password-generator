@@ -1,9 +1,10 @@
-import { View, Text, Pressable, TextInput} from 'react-native'
+// import
+import { Text, Pressable } from 'react-native'
+
+// styles
 import styles from '../styles/generate'
 
-
 export default ({ include, handleChange, context}: { include: boolean, handleChange: any, context: string}) => {
-
     enum paramText {
         uppercase = 'A',
         lowercase = 'a',

@@ -1,10 +1,8 @@
-import { ParamListBase, useFocusEffect, useNavigation, } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
+// imports
 import { useState } from 'react'
-import { View, Text, Pressable, StyleSheet} from 'react-native'
+import { View, Text, Pressable} from 'react-native'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import zxcvbn from 'zxcvbn'
-import * as React from 'react';
 
 // styles
 import styles from '../../../styles/check'
@@ -14,7 +12,7 @@ export default () => {
   const [password, setPassword] = useState<string>('')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
 
-  const handlePassword = (text: any) => {
+  const handlePassword = (text: string) => {
     setPassword(text)
   }
 
@@ -33,6 +31,7 @@ export default () => {
       <View style={styles.container}>
         <Text style={styles.title}>Check here your password</Text>
 
+        {/* check button */}
         <TextInput
           keyboardType='default'
           placeholder='password'
@@ -46,6 +45,7 @@ export default () => {
         {/* strengthmeter */}
         <Strengthmeter passwordStrength={passwordStrength}/>
 
+        {/* check button */}
         <Pressable style={styles.checkButton} onPress={checkingPassword}>
             <Text style={styles.checkText}>Check</Text>
         </Pressable>

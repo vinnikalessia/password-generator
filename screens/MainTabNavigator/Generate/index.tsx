@@ -1,5 +1,5 @@
-import { View, Text, Pressable, TextInput} from 'react-native'
-import Slider from '@react-native-community/slider';
+// imports
+import { View, Text, Pressable} from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useState } from 'react'
 import zxcvbn from 'zxcvbn'
@@ -11,20 +11,25 @@ import styles from '../../../styles/generate'
 import Strengthmeter from '../../../components/Strengthmeter'
 import Clipboard from '../../../components/Clipboard'
 import ParamPressable from '../../../components/ParamPressable';
+import LengthSlider from '../../../components/LengthSlider';
 
 export default () => {
-  const [passwordLength, setPasswordLength] = useState<string>('4')
+  // states
   const [generatedPassword, setGeneratedPassword] = useState('output e.g. 8j3k4j')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
-  const [textInputValue, setTextInputValue] = useState('4');
-
+  
+  // slider & textinput states
   const [sliderValue, setSliderValue] = useState<number>(4);
-
+  const [passwordLength, setPasswordLength] = useState<string>('4')
+  const [textInputValue, setTextInputValue] = useState('4');
+  
+  // include params states
   const [includeUppercase, setIncludeUppercase] = useState(true)
   const [includeLowercase, setIncludeLowercase] = useState(true)
   const [includeNumbers, setIncludeNumbers] = useState(true)
   const [includeSymbols, setIncludeSymbols] = useState(true)
 
+  // handlers params
   const handlePasswordLengthChange = (text: any) => {
     setPasswordLength(text)
   }
@@ -45,6 +50,34 @@ export default () => {
     setIncludeSymbols(value)
   }
 
+  // handlers slider & textinput
+  const handleSliderChange = (value: any) => {
+    handlePasswordLengthChange(value);
+    setSliderValue(value);
+    setTextInputValue(String(value));
+  };
+
+  const handleTextInputChange = (value: string) => {
+    const numericValue = parseInt(value);
+    if (isNaN(numericValue)) {
+      setTextInputValue(value);
+      return;
+    }
+    setTextInputValue(value);
+  };
+
+  const handleTextInputSubmit = () => {
+    const numericValue = parseInt(textInputValue);
+    if (isNaN(numericValue)) {
+      return;
+    }
+    const constrainedValue = Math.max(4, Math.min(numericValue, 50));
+    setSliderValue(constrainedValue);
+    handlePasswordLengthChange(constrainedValue);
+    setTextInputValue(String(constrainedValue));
+  };
+
+  // generate password
   const generatePassword = () => {
     const password = generateRandomPassword(
       parseInt(passwordLength),
@@ -59,6 +92,7 @@ export default () => {
     setPasswordStrength(strength)
   }
 
+  // generate random password
   const generateRandomPassword = (
     length: any,
     uppercase: any,
@@ -87,31 +121,6 @@ export default () => {
     return password
   }
 
-  const handleSliderChange = (value: any) => {
-    handlePasswordLengthChange(value);
-    setSliderValue(value);
-    setTextInputValue(String(value));
-  };
-
-  const handleTextInputChange = (value: string) => {
-    const numericValue = parseInt(value);
-    if (isNaN(numericValue)) {
-      setTextInputValue(value);
-      return;
-    }
-    setTextInputValue(value);
-  };
-
-  const handleTextInputSubmit = () => {
-    const numericValue = parseInt(textInputValue);
-    if (isNaN(numericValue)) {
-      return;
-    }
-    const constrainedValue = Math.max(4, Math.min(numericValue, 50));
-    setSliderValue(constrainedValue);
-    handlePasswordLengthChange(constrainedValue);
-    setTextInputValue(String(constrainedValue));
-  };
 
   return (
     <ScrollView style={styles.bg}>
@@ -125,26 +134,10 @@ export default () => {
         {/* strengthmeter */}
         <Strengthmeter passwordStrength={passwordStrength}/>
 
-        {/* slider & textinput & params */}
+        {/* params */}
         <View style={styles.paramContainer}>
-        <Slider
-            style={styles.slider}
-            minimumValue={4}
-            maximumValue={50}
-            step={1}
-            value={sliderValue}
-            onValueChange={handleSliderChange}
-            minimumTrackTintColor="#2A9D8F"
-            maximumTrackTintColor="#2A9D8F"
-            thumbTintColor="#2A9D8F"
-            tapToSeek={true}
-          />
-          <TextInput
-            keyboardType="numeric"
-            value={textInputValue}
-            onChangeText={handleTextInputChange}
-            onSubmitEditing={handleTextInputSubmit}
-          />
+          {/* slider & textinput */}
+          <LengthSlider sliderValue={sliderValue} handleSliderChange={handleSliderChange} textInputValue={textInputValue} handleTextInputChange={handleTextInputChange} handleTextInputSubmit={handleTextInputSubmit}/>
 
           {/* pressables */}
           <ParamPressable include={includeUppercase} handleChange={handleIncludeUppercaseChange} context="uppercase"/>
