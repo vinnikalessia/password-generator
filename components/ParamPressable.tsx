@@ -2,7 +2,7 @@ import { View, Text, Pressable, TextInput} from 'react-native'
 import styles from '../styles/generate'
 
 
-export default ({onChange, include, handleChange, context}: {onChange: Function, include: boolean, handleChange: any, context: string}) => {
+export default ({ include, handleChange, context}: { include: boolean, handleChange: any, context: string}) => {
 
     enum paramText {
         uppercase = 'A',
@@ -25,10 +25,6 @@ export default ({onChange, include, handleChange, context}: {onChange: Function,
                 return ''
         }
     }
-
-    // if (onPress) {
-    //     onChange(true)
-    // }
 
     return (
         <Pressable

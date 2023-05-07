@@ -147,10 +147,10 @@ export default () => {
           />
 
           {/* pressables */}
-          <ParamPressable onChange={handleIncludeUppercaseChange} include={includeUppercase} handleChange={handleIncludeUppercaseChange} context="uppercase"/>
-          <ParamPressable onChange={handleIncludeLowercaseChange} include={includeLowercase} handleChange={handleIncludeLowercaseChange} context="lowercase"/>
-          <ParamPressable onChange={handleIncludeSymbolsChange} include={includeSymbols} handleChange={handleIncludeSymbolsChange} context="symbols"/>
-          <ParamPressable onChange={handleIncludeNumbersChange} include={includeNumbers} handleChange={handleIncludeNumbersChange} context="numbers"/>
+          <ParamPressable include={includeUppercase} handleChange={handleIncludeUppercaseChange} context="uppercase"/>
+          <ParamPressable include={includeLowercase} handleChange={handleIncludeLowercaseChange} context="lowercase"/>
+          <ParamPressable include={includeSymbols} handleChange={handleIncludeSymbolsChange} context="symbols"/>
+          <ParamPressable include={includeNumbers} handleChange={handleIncludeNumbersChange} context="numbers"/>
 
           {/* generate button */}
           <Pressable style={styles.generateButton} onPress={generatePassword}>
