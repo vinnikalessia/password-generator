@@ -1,18 +1,15 @@
-import { View, Text, Pressable, StyleSheet, TextInput} from 'react-native'
+import { View, Text, Pressable, TextInput} from 'react-native'
 import Slider from '@react-native-community/slider';
-import Ionicons from '@expo/vector-icons/Ionicons'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useState } from 'react'
 import zxcvbn from 'zxcvbn'
-import * as Clipboard from 'expo-clipboard';
-import { NotificationFeedbackType, notificationAsync } from 'expo-haptics'
 
 // styles
-import strength from "../../../styles/strength"
 import styles from '../../../styles/generate'
 
 // components
 import Strengthmeter from '../../../components/Strengthmeter'
+import Clipboard from '../../../components/Clipboard'
 
 export default () => {
   const [passwordLength, setPasswordLength] = useState<string>('4')
@@ -89,12 +86,6 @@ export default () => {
     return password
   }
 
-  const copyToClipboard = async () => {
-    notificationAsync(NotificationFeedbackType.Success)
-    console.log('copied to clipboard')
-    await Clipboard.setStringAsync(generatedPassword);
-  };
-
   const handleSliderChange = (value: any) => {
     handlePasswordLengthChange(value);
     setSliderValue(value);
@@ -128,12 +119,7 @@ export default () => {
         <Text style={styles.subtitle}>Choose the parameters</Text>
 
         {/* output & clipboard */}
-        <View style={styles.copy}>
-          <Text style={styles.output}>{generatedPassword}</Text>
-          <Pressable onPress={copyToClipboard}>
-            <Ionicons name="clipboard-outline" style={styles.copyIcon} size={23} />
-          </Pressable>
-        </View>
+        <Clipboard generatedPassword={generatedPassword}/>
 
         {/* strengthmeter */}
         <Strengthmeter passwordStrength={passwordStrength}/>
