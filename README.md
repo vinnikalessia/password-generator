@@ -9,6 +9,7 @@ password-generator
 | [Technische uitwerking](#hoe-ga-ik-het-technisch-ongeveer-uitwerken)| hoe ik het technisch ga uitwerken|
 | [UI](#wat-word-mijn-insteek-voor-de-ui)| mijn insteek voor UI|
 | [Platformen](#op-welke-platformen-ga-ik-mij-focussen)| op welke platform(en) de focus zal liggen|
+| [Design](#design)| design pagina's voor mijn app|
 
 
 ## Algemeen
@@ -60,3 +61,11 @@ laten inkleuren afhankelijk van de sterkte van het wachtwoord.
 <br><br>
 ## Op welke platformen ga ik mij focussen?
 Op Android.
+<br><br>
+
+## Design
+<img src="/design/Scanning.png" alt="scanning" width="200"/>
+<img src="/design/Page_generate.png" alt="homepage" width="200"/>
+<img src="/design/Nieuw_wachtwoord.png" alt="generated password" width="200"/>
+<img src="/design/Page_check_wachtwoord.png" alt="check page" width="200"/>
+<img src="/design/Check_mijnwachtwoord.png" alt="password checked" width="200"/>
